@@ -11,8 +11,25 @@ import men from "../assets/man.png";
 import woman from "../assets/woman.png";
 import gridBlack from "../assets/grid-black.png";
 import arrowBlue from "../assets/arrow-blue.png";
+import withAuth from "./middleware/private-route";
+import { useState } from "react";
+import ReactModal from "react-modal";
+import { useSelector } from "react-redux";
+import http from "../helper/http";
 
 function TopUp() {
+  const token = useSelector((state) => state.auth.token);
+
+  const TopupBalance = async (e) => {
+    e.preventDefault();
+    const values = {
+      amount: e.target.amount.value,
+    };
+    console.log(values.amount);
+    await http(token).post("/transactions/topup", values);
+  };
+  const [topUp, setTopUp] = useState(false);
+
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -59,32 +76,44 @@ function TopUp() {
 
         <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
-            <div className="mb-[40px]">
-              <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Search Receiver</p>
-              <div className="flex border-1 relative">
-                <Image src={search} alt="search" className="mr-[22px] absolute pt-[15px] left-3" />
-                <input placeholder="Search receiver here" className="focus:outline-none w-full text-[#3A3D4266] text-[16px] border-1 bg-[#3A3D421A] py-[15px] pl-[54px]  rounded-[12px]" />
-              </div>
-            </div>
+            <button onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px]">
+              <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Top Up</p>
+            </button>
             <div>
-              <div className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px]">
-                <div className="mr-[15px]">
-                  <Image src={men} alt="man" className="w-[70px] h-[70px]" />
+              <p className="text-[#3A3D4299] text-[16px]">Enter the amount of money, and click submit</p>
+
+              <ReactModal isOpen={topUp} className="pl-7 md:ml-[450px] md:mt-[80px] outline-none rounded-[20px] w-max">
+                <div className="w-full  pl-5 pr-3 pb-5 md:pr-[150px]">
+                  <div className="border-1 bg-white p-[30px]  rounded-[25px]">
+                    <div className="flex">
+                      <div className="mb-[50px] flex-1">
+                        <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Topup</p>
+                        <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Enter the amount of money, and click submit </p>
+                      </div>
+                      <div>
+                        <button onClick={() => setTopUp(false)} className="text-[20px] text-[#3A3D42]">
+                          X
+                        </button>
+                      </div>
+                    </div>
+                    <form onSubmit={TopupBalance}>
+                      <div className="mb-[77px] flex w-full justify-center">
+                        <div className="border-2 rounded-[10px] py-[16px] px-[70px] text-center tracking-widest w-full">
+                          <input name="amount" type="number" placeholder="" className="focus:outline-none" />
+                          <hr className="w-full px-[20px]" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex justify-end">
+                          <button type="submit" className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[55px]  rounded-[12px]">
+                            <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Submit</p>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Ilham Danu</p>
-                  <p className="text-[#7A7886] text-[14px] leading-[19px]">+62 813-8492-9994</p>
-                </div>
-              </div>
-              <div className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px]">
-                <div className="mr-[15px]">
-                  <Image src={woman} alt="woman" className="w-[70px] h-[70px]" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Amira Humara</p>
-                  <p className="text-[#7A7886] text-[14px] leading-[19px]">+62 813-8492-9994</p>
-                </div>
-              </div>
+              </ReactModal>
             </div>
           </div>
         </div>
@@ -102,4 +131,4 @@ function TopUp() {
   );
 }
 
-export default TopUp;
+export default withAuth(TopUp);

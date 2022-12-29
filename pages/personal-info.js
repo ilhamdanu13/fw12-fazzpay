@@ -9,8 +9,24 @@ import gridBlack from "../assets/grid-black.png";
 import arrowUp from "../assets/arrow-up.png";
 import edit2 from "../assets/edit.png";
 import arrowRight from "../assets/arrow-right2.png";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import http from "../helper/http";
 
 function PersonalInfo() {
+  const token = useSelector((state) => state.auth.token);
+  const [bio, setBio] = useState({});
+  console.log(bio);
+  useEffect(() => {
+    getBio().then((data) => {
+      setBio(data.results);
+    });
+  }, []);
+
+  const getBio = async () => {
+    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile");
+    return data;
+  };
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -66,19 +82,19 @@ function PersonalInfo() {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">First Name</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">Ilham</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{bio.firstName}</p>
                 </div>
               </div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Last Name</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">Danu</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{bio.lastName}</p>
                 </div>
               </div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Verified E-mail</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">pewdiepie1@gmail.com</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{bio.email}</p>
                 </div>
               </div>
               <div className="flex border-1 shadow-md p-[15px] rounded-[10px] mb-[55px]">
@@ -86,7 +102,7 @@ function PersonalInfo() {
                   <div className="flex">
                     <div className="flex-1">
                       <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Phone Number</p>
-                      <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">+62 813-9387-7946</p>
+                      <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{bio.phoneNumber}</p>
                     </div>
                     <Link href="/update-phone-number" className="text-[16px] text-[#60bad7] pr-[35px] flex items-center">
                       Manage

@@ -14,8 +14,11 @@ import men from "../assets/man.png";
 import woman from "../assets/woman.png";
 import netflix from "../assets/netflix.png";
 import adobe from "../assets/adobe.png";
-
-function Home() {
+import withAuth from "./middleware/private-route";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+const Home = () => {
   return (
     <div>
       <Navbar />
@@ -223,6 +226,6 @@ function Home() {
       </footer>
     </div>
   );
-}
+};
 
-export default Home;
+export default withAuth(Home);

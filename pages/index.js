@@ -12,13 +12,13 @@ import peak from "../assets/peak.png";
 import Link from "next/link";
 //bg-[url('../assets/background.png')]
 import background from "../assets/background.png";
-function Home() {
+function LandingPage() {
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#7a4c75] pb-[200px]">
-        <div className="relative px-[150px] pt-[63px] flex mb-[177px]">
+        <div className="relative px-3 md:px-[150px] pt-[63px] flex mb-5 md:mb-[177px]">
           <div className="text-[29px] font-bold text-white leading-[39.56px] flex-1">CluePay</div>
-          <div className="text-white ">
+          <div className="text-white flex items-center">
             <Link href="/login" className="border-2 py-[11px] px-[45px] rounded-[12px] mr-[30px] hover:text-[#7a4c75] hover:bg-white hover:border-1">
               Login
             </Link>
@@ -41,30 +41,30 @@ function Home() {
           </Link>
         </div>
       </div>
-      <div className="bg-[#F5F1F3] pb-[120px]">
-        <div className="pt-[120px] flex justify-center mb-[30px] leading-[93px]">
-          <h1 className="text-[#60bad7] text-[60px] font-[800px] mr-3">Why</h1>
-          <h1 className="text-[60px] font-[800px] text-[#3A3D42]">Choose CluePay</h1>
+      <div className="bg-[#F5F1F3] pb-[50px] md:pb-[120px]">
+        <div className="pt-3 md:pt-[120px] flex justify-center md:mb-[30px] leading-[93px]">
+          <h1 className="text-[#60bad7] text-[30px] md:text-[60px] font-[800px] mr-3">Why</h1>
+          <h1 className="text-[30px] md:text-[60px] font-[800px] text-[#3A3D42]">Choose CluePay</h1>
         </div>
-        <div className="flex justify-center mb-[70px]">
+        <div className="flex justify-center mb-7 md:mb-[70px]">
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px] text-center">We have some great features from the application and it’s totally free to use by all users around the world.</p>
         </div>
-        <div className="flex px-[150px]">
-          <div className="mr-3">
+        <div className="px-3 md:flex md:px-[150px]">
+          <div className="md:mr-3 mb-3 md:mb-0">
             <div className="border-1 text-center rounded-[25px] bg-[#cd7389] px-[30px] pt-[40px] pb-[50px]">
               <Image src={phone} alt="phone" className="inline-block" />
-              <div>
+              <div className="flex flex-col">
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">24/7 Support</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] w-[300px]">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
               </div>
             </div>
           </div>
-          <div className="mr-3">
+          <div className="mb-3 md:mb-0 md:mr-3">
             <div className="border-1 text-center rounded-[25px] bg-[#fad8a9] px-[30px] pt-[40px] pb-[50px]">
               <Image src={lock} alt="lock" className="inline-block" />
               <div>
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">Data Privacy</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] w-[300px]">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
               </div>
             </div>
           </div>
@@ -73,24 +73,24 @@ function Home() {
               <Image src={download} alt="download" className="inline-block" />
               <div>
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">Easy Download</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] w-[300px]">Zwallet is 100% totally free to use it’s now available on Google Play Store and App Store.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">Zwallet is 100% totally free to use it’s now available on Google Play Store and App Store.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="bg-[#473AD10F]">
-        <div className="px-[140px] py-[90px]">
+        <div className="px-3 py-3 md:px-[140px] md:py-[90px]">
           <Image src={partners} alt="partners" className="" />
         </div>
       </div>
       <div className="bg-[#F5F1F3] pb-[120px]">
-        <div className="pt-[120px] flex justify-center mb-[50px]">
-          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[68px] leading-[120px] px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
+        <div className="pt-14 md:pt-[120px] flex justify-center mb-[50px]">
+          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[40px] md:text-[68px] leading-[120px] px-[50px] md:px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
         </div>
-        <div className="flex justify-center font-[800] mb-[30px]">
-          <p className="text-[#60bad7] text-[60px] leading-[93px] mr-5">Money </p>
-          <p className="text-[60px] text-[#3A3D42] leading-[93px]">has Been Transfered.</p>
+        <div className="md:flex justify-center font-[800] mb-[30px]">
+          <p className="text-center text-[#60bad7] text-[30px] md:text-[60px] leading-[93px] mr-5">Money </p>
+          <p className="text-[30px] md:text-[60px] text-center text-[#3A3D42] leading-[93px]">has Been Transfered.</p>
         </div>
         <div className="flex justify-center text-center">
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px]">That amount of money has been transfered from all users. We still counting and going strong!</p>
@@ -204,4 +204,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default LandingPage;

@@ -12,8 +12,40 @@ import arrowRight from "../assets/arrow-right2.png";
 import lockInput from "../assets/lock-input.png";
 import eye from "../assets/eye.png";
 import phone from "../assets/phone2.png";
+import { phoneNumberAction } from "../redux/actions/auth";
+import { useDispatch } from "react-redux";
+import withAuth from "./middleware/private-route";
+import { useSelector } from "react-redux";
+import http from "../helper/http";
 
 function UpdatePhoneNumber() {
+  const token = useSelector((state) => state.auth.token);
+
+  const UpdatePhoneNumber = async (e) => {
+    e.preventDefault();
+    const values = {
+      phoneNumber: e.target.phoneNumber.value,
+    };
+    console.log(values.phoneNumber);
+    await http(token).post("/profile/phone-number", values);
+  };
+  // const dispatch = useDispatch();
+
+  // const phoneNumberUpdate = async (e) => {
+  //   e.preventDefault();
+  //   const phoneNumber = e.target.phone.value;
+
+  //   try {
+  //     const results = await dispatch(
+  //       phoneNumberAction({
+  //         phoneNumber,
+  //       })
+  //     );
+  //     console.log(results.payload);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -65,12 +97,12 @@ function UpdatePhoneNumber() {
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Edit Phone Number</p>
               <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Add at least one phone number for the transfer ID so you can start transfering your money to another user.</p>
             </div>
-            <div className="md:px-[140px]">
+            <form onSubmit={UpdatePhoneNumber} className="md:px-[140px]">
               <div className="mb-[63px]">
                 <label className="flex text-[#3A3D42] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={phone} alt="phone" className="mr-[20px]" />
                   <span className="text-[#3A3D42] text-[16px] font-semibold leading-[23px] mr-[15px]">+62</span>
-                  <input name="phone" type="phone" placeholder="Enter your phone number" className="focus:outline-none w-full focus:font-semibold" />
+                  <input name="phoneNumber" type="phoneNumber" placeholder="Enter your phone number" className="focus:outline-none w-full focus:font-semibold" />
                 </label>
                 <hr />
               </div>
@@ -80,7 +112,7 @@ function UpdatePhoneNumber() {
                   Edit Phone Number
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -98,4 +130,4 @@ function UpdatePhoneNumber() {
   );
 }
 
-export default UpdatePhoneNumber;
+export default withAuth(UpdatePhoneNumber);

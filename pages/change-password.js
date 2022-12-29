@@ -12,7 +12,37 @@ import arrowRight from "../assets/arrow-right2.png";
 import lockInput from "../assets/lock-input.png";
 import eye from "../assets/eye.png";
 
+import http from "../helper/http";
+import { useState } from "react";
+import withAuth from "./middleware/private-route";
+import { useSelector } from "react-redux";
+
 function ChangePassword() {
+  const token = useSelector((state) => state.auth.token);
+  const [errMessage, setErrMessage] = useState("");
+
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    const currentPassword = e.target.password.value;
+    const newPassword = e.target.newPassword.value;
+    const confirmPassword = e.target.confirmPassword.value;
+
+    if (newPassword !== confirmPassword) {
+      return setErrMessage("New password and confirm password does not matched");
+    }
+
+    try {
+      const { data } = await http(token).post("profile/change-password", {
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      });
+      console.log(data);
+    } catch (err) {
+      return setErrMessage(err.message);
+    }
+  };
+
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -64,7 +94,17 @@ function ChangePassword() {
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Change Password</p>
               <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">You must enter your current password and then type your new password twice.</p>
             </div>
-            <div className="md:px-[140px]">
+            <form onSubmit={resetPassword} className="md:px-[140px]">
+              {errMessage ? (
+                <div className="alert alert-error shadow-lg">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{errMessage}</span>
+                  </div>
+                </div>
+              ) : null}
               <div className="mb-[63px]">
                 <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
@@ -76,7 +116,7 @@ function ChangePassword() {
               <div className="mb-[63px]">
                 <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                  <input name="password" type="password" placeholder="New password" className="focus:outline-none w-full " />
+                  <input name="newPassword" type="Password" placeholder="New password" className="focus:outline-none w-full " />
                   <Image src={eye} alt="eye" className="mr-[20px]" />
                 </label>
                 <hr />
@@ -84,7 +124,7 @@ function ChangePassword() {
               <div className="mb-[70px]">
                 <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                  <input name="password" type="password" placeholder="Repeat new password" className="focus:outline-none w-full " />
+                  <input name="confirmPassword" type="Password" placeholder="Repeat new password" className="focus:outline-none w-full " />
                   <Image src={eye} alt="eye" className="mr-[20px]" />
                 </label>
                 <hr />
@@ -94,7 +134,7 @@ function ChangePassword() {
                   Change Password
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -112,4 +152,4 @@ function ChangePassword() {
   );
 }
 
-export default ChangePassword;
+export default withAuth(ChangePassword);

@@ -11,8 +11,35 @@ import men from "../assets/man.png";
 import woman from "../assets/woman.png";
 import gridBlack from "../assets/grid-black.png";
 import arrowBlue from "../assets/arrow-blue.png";
+import withAuth from "./middleware/private-route";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import http from "../helper/http";
+import { useRouter } from "next/router";
 
-function searchReceiver() {
+function SearchReceiver() {
+  const router = useRouter();
+  const { id } = router.query;
+  const token = useSelector((state) => state.auth.token);
+  const [listTransaction, setListTransaction] = useState({});
+  console.log(listTransaction);
+  useEffect(() => {
+    getListTransaction().then((data) => {
+      setListTransaction(data);
+    });
+  }, []);
+
+  const getListTransaction = async () => {
+    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/transactions/recipient?page=1&limit=5");
+    return data;
+  };
+
+  const transfer = (e) => {
+    e.preventDefault();
+    router.push("/input-amount-blank", { state: id });
+  };
+
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -66,25 +93,20 @@ function searchReceiver() {
                 <input placeholder="Search receiver here" className="focus:outline-none w-full text-[#3A3D4266] text-[16px] border-1 bg-[#3A3D421A] py-[15px] pl-[54px]  rounded-[12px]" />
               </div>
             </div>
-            <div>
-              <div className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px]">
-                <div className="mr-[15px]">
-                  <Image src={men} alt="man" className="w-[70px] h-[70px]" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Ilham Danu</p>
-                  <p className="text-[#7A7886] text-[14px] leading-[19px]">+62 813-8492-9994</p>
-                </div>
-              </div>
-              <div className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px]">
-                <div className="mr-[15px]">
-                  <Image src={woman} alt="woman" className="w-[70px] h-[70px]" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Amira Humara</p>
-                  <p className="text-[#7A7886] text-[14px] leading-[19px]">+62 813-8492-9994</p>
-                </div>
-              </div>
+
+            <div className="">
+              {listTransaction?.results?.map((bio) => (
+                // eslint-disable-next-line react/jsx-key
+                <button onClick={transfer} className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px] w-full">
+                  <div className="mr-[15px]">
+                    <Image src={men} alt="man" className="w-[70px] h-[70px]" />
+                  </div>
+                  <div className="">
+                    <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{bio.firstName + "  " + bio.lastName}</p>
+                    <p className="text-[#7A7886] text-[14px] leading-[19px]">{bio.phoneNumber}</p>
+                  </div>
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -102,4 +124,16 @@ function searchReceiver() {
   );
 }
 
-export default searchReceiver;
+export default withAuth(SearchReceiver);
+
+{
+  /* <div className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px]">
+                <div className="mr-[15px]">
+                  <Image src={woman} alt="woman" className="w-[70px] h-[70px]" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Amira Humara</p>
+                  <p className="text-[#7A7886] text-[14px] leading-[19px]">+62 813-8492-9994</p>
+                </div>
+              </div> */
+}

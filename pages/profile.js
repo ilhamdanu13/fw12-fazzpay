@@ -10,8 +10,37 @@ import arrowUp from "../assets/arrow-up.png";
 import edit2 from "../assets/edit.png";
 import arrowRight from "../assets/arrow-right2.png";
 import user from "../assets/user.png";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { logout as logoutAction } from "../redux/reducers/auth";
+import http from "../helper/http";
+import withAuth from "./middleware/private-route";
 
 function Profile() {
+  const token = useSelector((state) => state.auth.token);
+  const [bio, setBio] = useState({});
+  console.log(bio);
+  useEffect(() => {
+    getBio().then((data) => {
+      setBio(data.results);
+    });
+  }, []);
+
+  const getBio = async () => {
+    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile");
+    return data;
+  };
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handlerLogout = () => {
+    dispatch(logoutAction());
+    router.push("/login");
+  };
+
   return (
     <div className="font-nunitoSans">
       <Navbar />
@@ -46,11 +75,9 @@ function Profile() {
               </button>
             </div>
             <div className="pb-[50px]">
-              <button className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
+              <button onClick={handlerLogout} className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
                 <Image src={logOut} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/login" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Logout
-                </Link>
+                <p className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">Logout</p>
               </button>
             </div>
           </div>
@@ -66,8 +93,8 @@ function Profile() {
                 <span className="text-[#7A7886] text-[16px] leading-[27px] ">Edit</span>
               </div>
               <div>
-                <p className="text-[24px] text-[#4D4B57] leading-[32px] mb-[10px]">Ilham Danu</p>
-                <p className="text-[#7A7886] text-[16px] leading-[27px]">+62 813-9387-7946</p>
+                <p className="text-[24px] text-[#4D4B57] leading-[32px] mb-[10px]">{bio.firstName + " " + bio.lastName}</p>
+                <p className="text-[#7A7886] text-[16px] leading-[27px]">{bio.phoneNumber}</p>
               </div>
             </div>
             <div>
@@ -118,4 +145,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default withAuth(Profile);
