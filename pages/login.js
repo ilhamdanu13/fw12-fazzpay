@@ -9,33 +9,48 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { loginAction } from "../redux/actions/auth";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import YupPassword from "yup-password";
+YupPassword(Yup);
+
+const loginScheme = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().required("Required"),
+});
 
 function Login() {
   const [errMessage, setErrMessage] = useState("");
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const login = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const cb = () => {
-      router.push("/home");
-    };
+  // const login = async (e) => {
+  //   e.preventDefault();
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   const cb = () => {
+  //     router.push("/home");
+  //   };
 
-    try {
-      const results = await dispatch(
-        loginAction({
-          email,
-          password,
-          cb,
-        })
-      );
-      setErrMessage(results.payload);
-    } catch (error) {
-      console.log(error);
-    }
+  //   try {
+  //     const results = await dispatch(
+  //       loginAction({
+  //         email,
+  //         password,
+  //         cb,
+  //       })
+  //     );
+  //     setErrMessage(results.payload);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const handleShow = () => {
+    setShow(!show);
   };
+
   return (
     <div className="md:flex font-nunitoSans py-5 md:py-0">
       <div className="hidden md:block md:w-3/5 bg-no-repeat bg-cover bg-[#7a4c75] pt-[50px] pb-[100px]">
@@ -54,41 +69,62 @@ function Login() {
           </p>
         </div>
       </div>
-      <div>
-        <div className="md:hidden pl-[50px] text-[32px] font-bold text-[#60bad7] leading-[50px]">CluePay</div>
-        <div className="md:pt-[121px] pl-[50px] mb-[63px] pr-[50px] md:pr-0">
-          <h2 className="md:w-[400px] text-[#3A3D42] text-[24px] leading-[42px] font-bold">Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
-          <p className="md:w-[420px] text-[#3A3D4299] text-[16px] leading-[30px]">Transfering money is eassier than ever, you can access CluePay wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
-        </div>
-        <form onSubmit={login} className="pl-[50px] pr-[50px] md:pr-0 mb-[40px]">
-          <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
-            <Image src={mailInput} alt="mail-input" className="mr-[20px]" />
-            <input name="email" type="email" placeholder="Enter your e-mail" className="focus:outline-none w-full " />
-          </label>
-          <hr className="text-[#A9A9A999] mb-[73px]" />
-          <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
-            <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-            <input name="password" type="password" placeholder="Enter your password" className="focus:outline-none w-full " />
-          </label>
-          <hr className="text-[#A9A9A999] mb-[20px]" />
-          <Link href="/reset-password" className="text-[15px] font-semibold leading-[24px] text-[#3A3D42CC] flex justify-end">
-            Forgot password?
-          </Link>
-          <div className="pt-[90px]">
-            <button type="submit" className="mb-[40px] border-1 bg-[#DADADA] py-[16px] w-full rounded-[12px] text-[#88888F] text-[18px]">
-              Login
-            </button>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={loginScheme}
+      >
+        {({ errors, touched }) => (
+          <div>
+            <div className="md:hidden pl-[50px] text-[32px] font-bold text-[#60bad7] leading-[50px]">CluePay</div>
+            <div className="md:pt-[121px] pl-[50px] mb-[63px] pr-[50px] md:pr-0">
+              <h2 className="md:w-[400px] text-[#3A3D42] text-[24px] leading-[42px] font-bold">Start Accessing Banking Needs With All Devices and All Platforms With 30.000+ Users</h2>
+              <p className="md:w-[420px] text-[#3A3D4299] text-[16px] leading-[30px]">Transfering money is eassier than ever, you can access CluePay wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
+            </div>
+            <Form className="pl-[50px] pr-[50px] md:pr-0 mb-[40px]">
+              <div className="mb-[73px]">
+                <div className="flex items-center text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
+                  <Image src={mailInput} alt="mail-input" className="mr-[20px]" />
+                  <Field name="email" type="email" placeholder="Enter your e-mail" className="focus:outline-none w-full " />
+                </div>
+                <hr className="text-[#A9A9A999]" />
+                {errors.email && touched.email ? <div className="text-red-500 text-sm">{errors.email}</div> : null}
+              </div>
+              <div className="mb-[20px]">
+                <div className="flex items-center text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
+                  <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
+                  <Field name="password" type={show ? "text" : "password"} placeholder="Enter your password" className="focus:outline-none w-full " />
+                  <label onClick={handleShow} className="absolute right-[80px]">
+                    {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
+                  </label>
+                </div>
+                <hr className="text-[#A9A9A999]" />
+                {errors.password && touched.password ? <div className="text-red-500 text-sm">{errors.password}</div> : null}
+              </div>
+              <div className="text-right">
+                <Link href="/reset-password" className="text-[15px] font-semibold leading-[24px] text-[#3A3D42CC]">
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="pt-[90px]">
+                <button type="submit" className="mb-[40px] bg-[#DADADA] py-[16px] w-full rounded-[12px] text-[#88888F] text-[18px] hover:bg-[#60bad7] hover:text-white hover:font-bold">
+                  Login
+                </button>
+              </div>
+            </Form>
+            <div className="pl-[50px] pr-[50px] md:pr-0 pb-[146px]">
+              <div className="flex justify-center">
+                <p className="text-[16px] text-[#3A3D42CC] font-bold leading-[26px] mr-2">Don’t have an account? Let’s</p>
+                <Link href="/signup" className="text-[16px] text-[#60bad7] leading-[26px] font-bold">
+                  Sign Up
+                </Link>
+              </div>
+            </div>
           </div>
-        </form>
-        <div className="pl-[50px] pr-[50px] md:pr-0 pb-[146px]">
-          <div className="flex justify-center">
-            <p className="text-[16px] text-[#3A3D42CC] font-bold leading-[26px] mr-2">Don’t have an account? Let’s</p>
-            <Link href="/signup" className="text-[16px] text-[#60bad7] leading-[26px] font-bold">
-              Sign Up
-            </Link>
-          </div>
-        </div>
-      </div>
+        )}
+      </Formik>
     </div>
   );
 }
