@@ -7,6 +7,7 @@ const http = (token) => {
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_URL,
     headers,
+    keepAlive: true,
   });
   return instance;
 };

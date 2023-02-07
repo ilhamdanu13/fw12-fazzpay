@@ -1,10 +1,8 @@
 import Image from "next/image";
-import previewProduct from "../assets/preview product2.png";
 import mailInput from "../assets/mail.png";
 import lockInput from "../assets/lock-input.png";
 import peak from "../assets/peak.png";
 import { useRouter } from "next/router";
-import background from "../assets/background.png";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -22,31 +20,38 @@ const loginScheme = Yup.object().shape({
 
 function Login() {
   const [errMessage, setErrMessage] = useState("");
+  const [alertWrong, setAlertWrong] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  // const login = async (e) => {
-  //   e.preventDefault();
-  //   const email = e.target.email.value;
-  //   const password = e.target.password.value;
-  //   const cb = () => {
-  //     router.push("/home");
-  //   };
+  const cb = () => {
+    setTimeout(() => {
+      router.push("/home");
+    }, 3000);
+  };
+  const login = async (value) => {
+    try {
+      const results = await dispatch(
+        loginAction({
+          ...value,
+          cb,
+        })
+      );
 
-  //   try {
-  //     const results = await dispatch(
-  //       loginAction({
-  //         email,
-  //         password,
-  //         cb,
-  //       })
-  //     );
-  //     setErrMessage(results.payload);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      if (results.payload.startsWith("Wrong")) {
+        setAlertWrong(true);
+        setErrMessage(results.payload);
+        return;
+      }
+      cb();
+      setAlertWrong(false);
+      setAlertSuccess(true);
+    } catch (error) {
+      setErrMessage(err.message);
+    }
+  };
   const handleShow = () => {
     setShow(!show);
   };
@@ -74,6 +79,7 @@ function Login() {
           email: "",
           password: "",
         }}
+        onSubmit={login}
         validationSchema={loginScheme}
       >
         {({ errors, touched }) => (
@@ -103,12 +109,26 @@ function Login() {
                 <hr className="text-[#A9A9A999]" />
                 {errors.password && touched.password ? <div className="text-red-500 text-sm">{errors.password}</div> : null}
               </div>
-              <div className="text-right">
+              <div className="text-right mb-5">
                 <Link href="/reset-password" className="text-[15px] font-semibold leading-[24px] text-[#3A3D42CC]">
                   Forgot password?
                 </Link>
               </div>
-              <div className="pt-[90px]">
+              {alertSuccess ? (
+                <div className="mb-5 bg-green-200 border-2 border-green-500 rounded">
+                  <div className="py-3 flex justify-center items-center">{errMessage}</div>
+                </div>
+              ) : (
+                false
+              )}
+              {alertWrong ? (
+                <div className="mb-5 bg-red-200 border-2 border-red-500 rounded">
+                  <div className="py-3 flex justify-center items-center">{errMessage}</div>
+                </div>
+              ) : (
+                false
+              )}
+              <div className="">
                 <button type="submit" className="mb-[40px] bg-[#DADADA] py-[16px] w-full rounded-[12px] text-[#88888F] text-[18px] hover:bg-[#60bad7] hover:text-white hover:font-bold">
                   Login
                 </button>

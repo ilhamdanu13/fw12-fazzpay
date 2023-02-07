@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./navbar";
+import Navbar from "./components/Navbar";
 import plus from "../assets/plus.png";
 import userBlue from "../assets/user-blue.png";
 import logOut from "../assets/log-out.png";

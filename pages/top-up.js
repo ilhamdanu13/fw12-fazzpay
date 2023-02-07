@@ -1,25 +1,17 @@
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "./navbar";
-import plus from "../assets/plus.png";
-import user from "../assets/user.png";
-import grid from "../assets/grid.png";
-import logOut from "../assets/log-out.png";
-import arrowUp from "../assets/arrow-up.png";
-import search from "../assets/search.png";
-import men from "../assets/man.png";
-import woman from "../assets/woman.png";
-import gridBlack from "../assets/grid-black.png";
-import arrowBlue from "../assets/arrow-blue.png";
+import Navbar from "./components/Navbar";
 import withAuth from "./middleware/private-route";
 import { useState } from "react";
 import ReactModal from "react-modal";
 import { useSelector } from "react-redux";
 import http from "../helper/http";
+import Sidebar from "./components/sidebar";
+import { useRouter } from "next/router";
 
-function TopUp() {
+const TopUp = () => {
   const token = useSelector((state) => state.auth.token);
-
+  const [topUp, setTopUp] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const router = useRouter();
   const TopupBalance = async (e) => {
     e.preventDefault();
     const values = {
@@ -27,56 +19,21 @@ function TopUp() {
     };
     console.log(values.amount);
     await http(token).post("/transactions/topup", values);
+    setAlertSuccess(true);
+    setTimeout(() => {
+      router.push("/home");
+    }, 3000);
   };
-  const [topUp, setTopUp] = useState(false);
 
   return (
     <div className="font-nunitoSans">
       <Navbar />
       <div className="bg-[#f5f1f3] pt-[40px] md:flex">
-        <div className="pl-5 pr-3 md:pr-0 md:pl-[150px] md:mr-[20px] md:h-[690px] md:mb-[35px] mb-5">
-          <div className="block border-1 bg-white rounded-[25px] md:flex flex-col md:h-full">
-            <div className="flex-1">
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[52px] pl-[38px]">
-                <Image src={gridBlack} alt="grid" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7]">
-                  Dashboard
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={arrowUp} alt="arrowUp" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/search-receiver" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Transfer
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px]">
-                <hr className="border-r-4 border-[#60bad7] h-[35px] mr-[33px]" />
-                <Image src={plus} alt="plus" className="md:mr-[15px] w-[28px] h-[28px]" />
-                <Link href="top-up" className="text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
-                  Top Up
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={user} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/profile" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Profile
-                </Link>
-              </button>
-            </div>
-            <div className="pb-[50px]">
-              <button className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
-                <Image src={logOut} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/login" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Logout
-                </Link>
-              </button>
-            </div>
-          </div>
-        </div>
+        <Sidebar />
 
         <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
-            <button onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px]">
+            <button onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px] mb-5">
               <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Top Up</p>
             </button>
             <div>
@@ -97,13 +54,20 @@ function TopUp() {
                       </div>
                     </div>
                     <form onSubmit={TopupBalance}>
-                      <div className="mb-[77px] flex w-full justify-center">
+                      <div className="mb-7 flex w-full justify-center">
                         <div className="border-2 rounded-[10px] py-[16px] px-[70px] text-center tracking-widest w-full">
-                          <input name="amount" type="number" placeholder="" className="focus:outline-none" />
+                          <input name="amount" placeholder="" className="focus:outline-none" />
                           <hr className="w-full px-[20px]" />
                         </div>
                       </div>
                       <div>
+                        {alertSuccess ? (
+                          <div className="bg-green-200 border-2 border-green-500 py-3 rounded flex justify-center items-center mb-5">
+                            <span>Top up success</span>
+                          </div>
+                        ) : (
+                          false
+                        )}
                         <div className="flex justify-end">
                           <button type="submit" className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[55px]  rounded-[12px]">
                             <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Submit</p>
@@ -129,6 +93,6 @@ function TopUp() {
       </footer>
     </div>
   );
-}
+};
 
 export default withAuth(TopUp);

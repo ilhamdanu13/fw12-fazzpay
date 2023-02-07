@@ -1,12 +1,41 @@
 import Image from "next/image";
-import previewProduct from "../assets/preview product2.png";
 import mailInput from "../assets/mail.png";
-import lockInput from "../assets/lock-input.png";
 import peak from "../assets/peak.png";
-
-import background from "../assets/background.png";
+import { Formik, Form, Field } from "formik";
+import YupPassword from "yup-password";
+import * as Yup from "yup";
+YupPassword(Yup);
 import Link from "next/link";
-function resetPassword() {
+import { useState } from "react";
+import { forgotPasswordAction as forgotAction } from "../redux/actions/auth";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+
+const resetPasswordScheme = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+});
+
+const ResetPassword = () => {
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertEmail, setAlertEmail] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const reset = async (value) => {
+    const cb = () => {
+      setAlertEmail(true);
+      setTimeout(() => {
+        router.push("create-new-password");
+      }, 3000);
+    };
+    try {
+      const results = await dispatch(forgotAction({ ...value, cb }));
+      cb();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="md:flex font-nunitoSans py-5 md:py-0">
       <div className="hidden md:block md:w-3/5 bg-no-repeat bg-cover bg-[#7a4c75] pt-[50px] pb-[100px]">
@@ -31,23 +60,45 @@ function resetPassword() {
           <h2 className="md:w-[400px] text-[#3A3D42] text-[24px] leading-[42px] font-bold">Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</h2>
           <p className="md:w-[420px] text-[#3A3D4299] text-[16px] leading-[30px]">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
         </div>
-        <div className="pl-[50px] pr-[50px] md:pr-[50px] mb-[90px]">
-          <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
-            <Image src={mailInput} alt="mail-input" className="mr-[20px]" />
-            <input name="email" type="email" placeholder="Enter your e-mail" className="focus:outline-none w-full " />
-          </label>
-          <hr className="text-[#A9A9A999] mb-[73px]" />
-        </div>
-        <div className="pl-[50px] pr-[50px]">
-          <div className="">
-            <Link href="#" className="border-1 bg-[#DADADA] text-[#88888F] text-[18px] py-[16px] md:px-[240px] flex justify-center rounded-[12px] w-full">
-              Confirm
-            </Link>
-          </div>
-        </div>
+        <Formik
+          initialValues={{
+            email: "",
+          }}
+          onSubmit={reset}
+          validationSchema={resetPasswordScheme}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <div className="pl-[50px] pr-[50px] md:pr-[50px] mb-[90px]">
+                <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
+                  <Image src={mailInput} alt="mail-input" className="mr-[20px]" />
+                  <Field name="email" type="email" placeholder="Enter your e-mail" className="focus:outline-none w-full " />
+                </label>
+                <hr className="text-[#A9A9A999]" />
+                {errors.email && touched.email ? <div className="text-red-500 text-sm">{errors.email}</div> : null}
+              </div>
+              {alertEmail ? (
+                <div className="px-[50px] mb-5">
+                  <div className="bg-yellow-200 border-2 border-yellow-500 rounded flex justify-center items-center py-3">
+                    <span>Unavailable</span>
+                  </div>
+                </div>
+              ) : (
+                false
+              )}
+              <div className="pl-[50px] pr-[50px]">
+                <div className="">
+                  <button type="submit" className="border-1 bg-[#DADADA] text-[#88888F] text-[18px] py-[16px] md:px-[240px] flex justify-center rounded-[12px] w-full">
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
-}
+};
 
-export default resetPassword;
+export default ResetPassword;

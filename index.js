@@ -1,6 +1,6 @@
-import { ReactDOM } from "react";
-import LandingPage from "./pages/landing-page";
+// import { ReactDOM } from "react";
+// import LandingPage from "./pages/landing-page";
 
-function Index() {
-  return <LandingPage />;
-}
+// function Index() {
+//   return <LandingPage />;
+// }

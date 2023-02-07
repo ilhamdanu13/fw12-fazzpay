@@ -1,15 +1,12 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./navbar";
-import plus from "../assets/plus.png";
-import userBlue from "../assets/user-blue.png";
-import logOut from "../assets/log-out.png";
+import Navbar from "./components/Navbar";
+import { FiEdit3 } from "react-icons/fi";
 import men from "../assets/man.png";
-import gridBlack from "../assets/grid-black.png";
-import arrowUp from "../assets/arrow-up.png";
+
 import edit2 from "../assets/edit.png";
 import arrowRight from "../assets/arrow-right2.png";
-import user from "../assets/user.png";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,9 +14,17 @@ import { useSelector } from "react-redux";
 import { logout as logoutAction } from "../redux/reducers/auth";
 import http from "../helper/http";
 import withAuth from "./middleware/private-route";
+import Sidebar from "./components/sidebar";
+import Footer from "./components/footer";
 
 function Profile() {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state?.auth?.token);
+  const [picture, setPicture] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const [alertSize, setAlertSize] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [bio, setBio] = useState({});
   console.log(bio);
   useEffect(() => {
@@ -33,8 +38,28 @@ function Profile() {
     return data;
   };
 
-  const dispatch = useDispatch();
-  const router = useRouter();
+  const upload = async (e) => {
+    e.preventDefault();
+    const file = e.target.picture.files[0];
+    console.log(file);
+    if (file?.size > 1024 * 1024 * 2) {
+      setAlertSize(true);
+    } else {
+      try {
+        const form = new FormData();
+        form.append("picture", file);
+        const { data } = await http(token).post("/profile", form);
+        setAlertSize(false);
+        setAlertSuccess(true);
+        setTimeout(() => {
+          router.reload();
+          setPicture(false);
+        }, 3000);
+      } catch (error) {
+        window.alert(error.response);
+      }
+    }
+  };
 
   const handlerLogout = () => {
     dispatch(logoutAction());
@@ -42,55 +67,52 @@ function Profile() {
   };
 
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
-        <div className="pl-5 pr-3 md:pr-0 md:pl-[150px] md:mr-[20px] md:h-[690px] md:mb-[35px] mb-5">
-          <div className="block border-1 bg-white rounded-[25px] md:flex flex-col md:h-full">
-            <div className="flex-1">
-              <div className="flex items-center pr-[96px] pt-5 md:pt-[52px] pl-[38px]">
-                <Image src={gridBlack} alt="grid" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7]">
-                  Dashboard
-                </Link>
-              </div>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={arrowUp} alt="arrowUp" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/search-receiver" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Transfer
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={plus} alt="plus" className=" md:mr-[15px] w-[28px] h-[28px]" />
-                <Link href="top-up" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
-                  Top Up
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] ">
-                <hr className="border-r-4 border-[#60bad7] h-[35px] mr-[33px]" />
-                <Image src={userBlue} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/profile" className="text-[#60bad7] text-[18px] leading-[31px]">
-                  Profile
-                </Link>
-              </button>
-            </div>
-            <div className="pb-[50px]">
-              <button onClick={handlerLogout} className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
-                <Image src={logOut} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <p className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">Logout</p>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="pl-5 pr-3 md:pl-0 md:pr-[150px] w-full pb-5 md:pb-[33px]">
-          <div className="border-1 bg-white pt-[48px] pb-[75px] px-5 md:px-[150px] rounded-[25px]">
+      <div className="lg:flex">
+        <Sidebar />
+        <div className="pl-5 pr-3 lg:pl-0 lg:pr-[150px] w-full pb-5 lg:pb-[33px]">
+          <div className="border-1 bg-white pt-[48px] pb-[75px] px-5 lg:px-[150px] rounded-[25px]">
             <div className="text-center mb-[50px]">
               <div className="flex justify-center">
-                <Image src={men} alt="men" className="w-[80px] h-[80px] mb-[10px]" />
+                <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} alt="profile" width="80" height="80" className="w-[80px] h-[80px]" />
               </div>
-              <div className="flex items-center mb-[15px] justify-center">
-                <Image src={edit2} alt="edit" className="w-[9px[ h-[9px] mr-[10px]" />
-                <span className="text-[#7A7886] text-[16px] leading-[27px] ">Edit</span>
+
+              {/* The button to open modal */}
+              <label htmlFor="my-modal-3" className="btn bg-white border-0">
+                <FiEdit3 className="w-[25px[ h-[25px] mr-[10px] text-black" />
+                <span className="text-[#7A7886] text-[12px] leading-[27px] font-semibold">Edit</span>
+              </label>
+
+              {/* Put this part before </body> tag */}
+              <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+              <div className="modal">
+                <div className="modal-box relative">
+                  <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
+                    ✕
+                  </label>
+                  <form onSubmit={upload}>
+                    <h3 className="text-lg font-bold text-left">Choose file</h3>
+                    <input type="file" name="picture" accept="image/png, image/jpeg, image/jpg" className="flex justify-start mb-7" />
+                    {alertSuccess ? (
+                      <div className="bg-green-200 border-2 rounded border-green-500 flex justify-center items-center py-3 mb-5">
+                        <span>Upload success</span>
+                      </div>
+                    ) : (
+                      false
+                    )}
+                    {alertSize ? (
+                      <div className="bg-red-200 border-2 rounded border-red-500 flex justify-center items-center py-3 mb-5">
+                        <span>Cannot more than 2MB</span>
+                      </div>
+                    ) : (
+                      false
+                    )}
+                    <button type="submit" className="btn">
+                      Upload
+                    </button>
+                  </form>
+                </div>
               </div>
               <div>
                 <p className="text-[24px] text-[#4D4B57] leading-[32px] mb-[10px]">{bio.firstName + " " + bio.lastName}</p>
@@ -131,16 +153,7 @@ function Profile() {
           </div>
         </div>
       </div>
-
-      <footer className="pl-5 pr-3 md:pl-[150px] md:pr-[150px] md:py-[20px] bg-[#7a4c75]">
-        <div className="text-[#EFEFEFE5] text-[16px] leading-[28px] md:flex">
-          <div className="flex-1 mb-2 md:mb-0">2020 CluePay. All right reserved.</div>
-          <div className="font-semibold flex flex-col md:block">
-            <span className="mr-[40px] mb-1 md:mb-0">+62 5637 8882 9901</span>
-            <span>contact@cluepay.com</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

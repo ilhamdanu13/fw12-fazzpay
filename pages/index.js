@@ -16,13 +16,13 @@ function LandingPage() {
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#7a4c75] pb-[200px]">
-        <div className="relative px-3 md:px-[150px] pt-[63px] flex mb-5 md:mb-[177px]">
+        <div className="relative px-3 lg:px-[150px] pt-[63px] flex mb-5 lg:mb-[177px]">
           <div className="text-[29px] font-bold text-white leading-[39.56px] flex-1">CluePay</div>
           <div className="text-white flex items-center">
-            <Link href="/login" className="border-2 py-[11px] px-[45px] rounded-[12px] mr-[30px] hover:text-[#7a4c75] hover:bg-white hover:border-1">
+            <Link href="/login" className="border-2 py-[11px] px-[45px] rounded-[12px] mr-[30px] hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[47px]">
               Login
             </Link>
-            <Link href="/signup" className="border-2 py-[11px] px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-1">
+            <Link href="/signup" className="border-2 py-[11px] px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[38px]">
               Sign Up
             </Link>
           </div>
@@ -41,30 +41,30 @@ function LandingPage() {
           </Link>
         </div>
       </div>
-      <div className="bg-[#F5F1F3] pb-[50px] md:pb-[120px]">
-        <div className="pt-3 md:pt-[120px] flex justify-center md:mb-[30px] leading-[93px]">
-          <h1 className="text-[#60bad7] text-[30px] md:text-[60px] font-[800px] mr-3">Why</h1>
-          <h1 className="text-[30px] md:text-[60px] font-[800px] text-[#3A3D42]">Choose CluePay</h1>
+      <div className="bg-[#F5F1F3] pb-[50px] lg:pb-[120px]">
+        <div className="pt-3 lg:pt-[120px] flex justify-center lg:mb-[30px] leading-[93px]">
+          <h1 className="text-[#60bad7] text-[30px] lg:text-[60px] font-[800px] mr-3">Why</h1>
+          <h1 className="text-[30px] lg:text-[60px] font-[800px] text-[#3A3D42]">Choose CluePay</h1>
         </div>
-        <div className="flex justify-center mb-7 md:mb-[70px]">
+        <div className="flex justify-center mb-7 lg:mb-[70px]">
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px] text-center">We have some great features from the application and it’s totally free to use by all users around the world.</p>
         </div>
-        <div className="px-3 md:flex md:px-[150px]">
-          <div className="md:mr-3 mb-3 md:mb-0">
+        <div className="px-3 lg:flex lg:px-[180px] justify-center items-center">
+          <div className="lg:mr-7 mb-3 lg:mb-0">
             <div className="border-1 text-center rounded-[25px] bg-[#cd7389] px-[30px] pt-[40px] pb-[50px]">
               <Image src={phone} alt="phone" className="inline-block" />
               <div className="flex flex-col">
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">24/7 Support</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] lg:w-[300px]">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
               </div>
             </div>
           </div>
-          <div className="mb-3 md:mb-0 md:mr-3">
+          <div className="mb-3 lg:mb-0 lg:mr-7">
             <div className="border-1 text-center rounded-[25px] bg-[#fad8a9] px-[30px] pt-[40px] pb-[50px]">
               <Image src={lock} alt="lock" className="inline-block" />
               <div>
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">Data Privacy</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] lg:w-[300px]">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
               </div>
             </div>
           </div>
@@ -73,24 +73,24 @@ function LandingPage() {
               <Image src={download} alt="download" className="inline-block" />
               <div>
                 <p className="text-white text-[24px] font-bold leading-[31px] pt-[35px]">Easy Download</p>
-                <p className="text-white text-[18px] leading-[31px] pt-[35px] md:w-[300px]">Zwallet is 100% totally free to use it’s now available on Google Play Store and App Store.</p>
+                <p className="text-white text-[18px] leading-[31px] pt-[35px] lg:w-[300px]">CluePay is 100% totally free to use it’s now available on Google Play Store and App Store.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="bg-[#473AD10F]">
-        <div className="px-3 py-3 md:px-[140px] md:py-[90px]">
+        <div className="px-3 py-3 lg:px-[140px] lg:py-[90px] flex justify-center items-center">
           <Image src={partners} alt="partners" className="" />
         </div>
       </div>
       <div className="bg-[#F5F1F3] pb-[120px]">
-        <div className="pt-14 md:pt-[120px] flex justify-center mb-[50px]">
-          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[40px] md:text-[68px] leading-[120px] px-[50px] md:px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
+        <div className="pt-14 lg:pt-[120px] flex justify-center mb-[50px]">
+          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[40px] lg:text-[68px] leading-[120px] px-[50px] lg:px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
         </div>
-        <div className="md:flex justify-center font-[800] mb-[30px]">
-          <p className="text-center text-[#60bad7] text-[30px] md:text-[60px] leading-[93px] mr-5">Money </p>
-          <p className="text-[30px] md:text-[60px] text-center text-[#3A3D42] leading-[93px]">has Been Transfered.</p>
+        <div className="lg:flex justify-center font-[800] mb-[30px]">
+          <p className="text-center text-[#60bad7] text-[30px] lg:text-[60px] leading-[93px] mr-5">Money </p>
+          <p className="text-[30px] lg:text-[60px] text-center text-[#3A3D42] leading-[93px]">has Been Transfered.</p>
         </div>
         <div className="flex justify-center text-center">
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px]">That amount of money has been transfered from all users. We still counting and going strong!</p>
@@ -172,15 +172,15 @@ function LandingPage() {
         </div>
       </div>
       <footer className="bg-[#7a4c75]">
-        <div className="pl-4 md:px-[150px] pt-[70px] pb-[42px]">
+        <div className="pl-4 lg:px-[150px] pt-[70px] pb-[42px]">
           <div>
             <span className="text-white text-[36px] font-bold leading-[50px]">CluePay</span>
           </div>
-          <div className="text-white w-[250px] mb-3 leading-[28px] pt-[30px] md:pb-[67px]">
+          <div className="text-white w-[250px] mb-3 leading-[28px] pt-[30px] lg:pb-[67px]">
             <span>Simplify financial needs and saving much time in banking needs with one single app.</span>
           </div>
-          <hr className="w-80 md:w-full block md:mb-[30px] text-white" />
-          <div className="hidden md:flex text-white">
+          <hr className="w-80 lg:w-full block lg:mb-[30px] text-white" />
+          <div className="hidden lg:flex text-white">
             <div className="flex-1">
               <span>2020 CluePay. All right reserved.</span>
             </div>
@@ -189,7 +189,7 @@ function LandingPage() {
               <span>contact@cluepay.com</span>
             </div>
           </div>
-          <div className="pt-3 md:hidden text-white">
+          <div className="pt-3 lg:hidden text-white">
             <div className="mb-3">
               <div className="pr-[79px] mb-3">Telepon</div>
               <div>Email</div>

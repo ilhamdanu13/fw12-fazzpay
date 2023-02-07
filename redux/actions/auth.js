@@ -11,14 +11,25 @@ export const loginAction = createAsyncThunk("auth/loginAction", async ({ email, 
   }
 });
 
-export const registerAction = createAsyncThunk("auth/registerAction", async ({ firstName, lastName, email, password, pin, cb }) => {
+export const registerAction = createAsyncThunk("auth/registerAction", async ({ firstName, lastName, email, password, cb }) => {
   try {
     const { data } = await http().post("/auth/register", {
       firstName,
       lastName,
       email,
       password,
-      pin,
+    });
+    cb();
+    return data.results;
+  } catch (error) {
+    return error.response.data.message;
+  }
+});
+
+export const forgotPasswordAction = createAsyncThunk("auth/forgotPasswordAction", async ({ email, cb }) => {
+  try {
+    const { data } = await http().post("auth/forgot-password", {
+      email,
     });
     cb();
     return data.results;

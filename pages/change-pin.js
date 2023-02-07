@@ -1,117 +1,80 @@
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "./navbar";
-import plus from "../assets/plus.png";
-import userBlue from "../assets/user-blue.png";
-import logOut from "../assets/log-out.png";
-import men from "../assets/man.png";
-import gridBlack from "../assets/grid-black.png";
-import arrowUp from "../assets/arrow-up.png";
-import edit2 from "../assets/edit.png";
-import arrowRight from "../assets/arrow-right2.png";
-import lockInput from "../assets/lock-input.png";
-import eye from "../assets/eye.png";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/sidebar";
+import Footer from "./components/footer";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import YupPassword from "yup-password";
+import http from "../helper/http";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+YupPassword(Yup);
 
-function ChangePin() {
+const pinScheme = Yup.object().shape({
+  newPin: Yup.string().minNumbers(6, "Should 6 digits").max(6, "Should 6 digits").required("Required"),
+});
+const ChangePin = () => {
+  const token = useSelector((state) => state?.auth?.token);
+  const [alertSuccess, setAlertSuccess] = useState(false);
+  const updatePin = async (value) => {
+    const newPin = value.newPin;
+
+    try {
+      await http(token).post("/profile/change-pin", value);
+      setAlertSuccess(true);
+      setTimeout(() => {
+        setAlertSuccess(false);
+      }, 5000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="font-nunitoSans">
       <Navbar />
       <div className="bg-[#f5f1f3] pt-[40px] md:flex">
-        <div className="md:mr-[20px] flex flex-col md:mb-[35px]">
-          <div className="pl-5 pr-3 md:pr-0 md:pl-[150px] md:mr-[20px] md:h-[690px] md:mb-[35px] mb-5">
-            <div className="block border-1 bg-white rounded-[25px] md:flex flex-col md:h-[662px]">
-              <div className="flex-1">
-                <div className="flex items-center pr-[96px] pt-5 md:pt-[52px] pl-[38px]">
-                  <Image src={gridBlack} alt="grid" className="mr-[23px] w-[28px] h-[28px]" />
-                  <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7]">
-                    Dashboard
-                  </Link>
-                </div>
-                <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                  <Image src={arrowUp} alt="arrowUp" className="mr-[23px] w-[28px] h-[28px]" />
-                  <Link href="/search-receiver" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                    Transfer
-                  </Link>
-                </button>
-                <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                  <Image src={plus} alt="plus" className=" md:mr-[15px] w-[28px] h-[28px]" />
-                  <Link href="top-up" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
-                    Top Up
-                  </Link>
-                </button>
-                <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] ">
-                  <hr className="border-r-4 border-[#60bad7] h-[35px] mr-[33px]" />
-                  <Image src={userBlue} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                  <Link href="/profile" className="text-[#60bad7] text-[18px] leading-[31px]">
-                    Profile
-                  </Link>
-                </button>
-              </div>
-              <div className="pb-[50px]">
-                <button className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
-                  <Image src={logOut} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                  <Link href="/login" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                    Logout
-                  </Link>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Sidebar />
         <div className="w-full md:mb-[35px] pl-5 pr-3 pb-5 md:pr-[150px]">
           <div className="border-1 bg-white p-[30px] pb-[220px] rounded-[25px]">
-            <div className="mb-[104px]">
+            <div className="mb-[50px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Change PIN</p>
-              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Enter your current 6 digits CluePay PIN below to continue to the next steps.</p>
+              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Enter your 6 digits CluePay PIN below to continue to the next steps.</p>
             </div>
-            <div className="mb-[70px] px-[50px] flex w-full justify-center">
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow md:mr-[23px] pt-[15px] px-[15px] mr-[14px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
+            {alertSuccess ? (
+              <div className="bg-green-200 border-2 border-green-500 py-3 flex justify-center items-center mb-7 rounded">
+                <span>Pin updated!</span>
               </div>
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow md:mr-[23px] pt-[15px] px-[15px] mr-[14px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
-              </div>
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow md:mr-[23px] pt-[15px] px-[15px] mr-[14px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
-              </div>
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow md:mr-[23px] pt-[15px] px-[15px] mr-[14px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
-              </div>
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow md:mr-[23px] pt-[15px] px-[15px] mr-[14px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
-              </div>
-              <div className="border-2 md:pt-[30px] pb-[10px] md:px-[26px] rounded-[10px] shadow pt-[15px] px-[15px]">
-                <span className="md:text-[28px] text-[#A9A9A999]">1</span>
-                <hr className="" />
-              </div>
-            </div>
-            <div>
-              <div className="px-[80px]">
-                <button type="submit" className="border-1 bg-[#DADADA] py-[16px] text-[#88888F] text-[18px] leading-[24px] font-bold w-full rounded-[12px]">
-                  Continue
-                </button>
-              </div>
-            </div>
+            ) : null}
+            <Formik
+              initialValues={{
+                newPin: "",
+              }}
+              onSubmit={updatePin}
+              validationSchema={pinScheme}
+            >
+              {({ errors, touched }) => (
+                <Form>
+                  <div className="flex flex-col justify-center items-center mb-7">
+                    <Field name="newPin" className="py-3 border-b-2 text-[48px] leading-[50px] tracking-widest focus:outline-none w-1/3 px-3" />
+                    {errors.newPin && touched.newPin ? <div className="text-red-500 text-sm">{errors.newPin}</div> : null}
+                  </div>
+
+                  <div>
+                    <div className="px-[80px]">
+                      <button type="submit" className="border-1 bg-[#DADADA] py-[16px] text-[#88888F] text-[18px] leading-[24px] font-bold w-full rounded-[12px] hover:bg-[#60bad7] hover:text-white hover:font-bold">
+                        Continue
+                      </button>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
-
-      <footer className="pl-5 pr-3 md:pl-[150px] md:pr-[150px] md:py-[20px] bg-[#7a4c75]">
-        <div className="text-[#EFEFEFE5] text-[16px] leading-[28px] md:flex">
-          <div className="flex-1 mb-2 md:mb-0">2020 CluePay. All right reserved.</div>
-          <div className="font-semibold flex flex-col md:block">
-            <span className="mr-[40px] mb-1 md:mb-0">+62 5637 8882 9901</span>
-            <span>contact@cluepay.com</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
-}
+};
 
 export default ChangePin;

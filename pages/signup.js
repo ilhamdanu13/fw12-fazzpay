@@ -4,7 +4,7 @@ import mailInput from "../assets/mail.png";
 import lockInput from "../assets/lock-input.png";
 import person from "../assets/person.png";
 import peak from "../assets/peak.png";
-
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
+import { useState } from "react";
 
 YupPassword(Yup);
 
@@ -20,38 +21,46 @@ const SignupScheme = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().password().min(8, "Minimum length 8").minLowercase(1, "At least 1 lowercase").minUppercase(1, "At least 1 uppercase").minSymbols(1, "At least 1 symbol").required("Required"),
+  password: Yup.string().password().min(8, "Minimum length 8").minLowercase(1, "At least 1 lowercase").minUppercase(1, "At least 1 uppercase").minSymbols(1, "At least 1 symbol").minNumbers(1, "At least 1 number").required("Required"),
 });
 
 function SignUp() {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [alertEmail, setAlertEmail] = useState(false);
+  const [alertSuccess, setAlertSuccess] = useState(false);
   const router = useRouter();
 
-  const register = async (e) => {
-    e.preventDefault();
-    // const firstName = e.target.firstName.value;
-    // const lastName = e.target.lastName.value;
-    // const email = e.target.email.value;
-    // const password = e.target.password.value;
-
+  // Register
+  const register = async (value) => {
     const cb = () => {
+      setAlertEmail(false);
+      setAlertSuccess(true);
+      setTimeout(() => {
+        console.log("daftarberhasil");
+      }, 3000);
       router.push("login");
     };
     try {
       const results = await dispatch(
         registerAction({
-          firstName,
-          lastName,
-          email,
-          password,
-
+          ...value,
           cb,
         })
       );
-      console.log(results.payload);
+      if (results.payload.startsWith("duplicate")) {
+        setAlertSuccess(false);
+        setAlertEmail(true);
+        return;
+      }
+      cb();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleShow = () => {
+    setShow(!show);
   };
   return (
     <div className="md:flex font-nunitoSans py-5 md:py-0">
@@ -118,12 +127,30 @@ function SignUp() {
                   <div className="mb-[44px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="password" type="password" placeholder="Create your password" className="focus:outline-none w-full " />
+                      <Field name="password" type={show ? "text" : "password"} placeholder="Create your password" className="focus:outline-none w-full " />
+                      <div onClick={handleShow} className="absolute right-[80px]">
+                        {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
+                      </div>
                     </label>
                     <hr className="text-[#A9A9A999]" />
                     {errors.password && touched.password ? <div className="text-red-500 text-sm">{errors.password}</div> : null}
                   </div>
+                  {alertSuccess ? (
+                    <div className="bg-green-200 border-2 rounded border-green-500 mb-5 py-3 flex justify-center items-center">
+                      <span className="">Register success</span>
+                    </div>
+                  ) : (
+                    false
+                  )}
+                  {alertEmail ? (
+                    <div className="bg-red-200 border-2 rounded border-red-500 mb-5 py-3 flex justify-center items-center">
+                      <span className="">Email already used!</span>
+                    </div>
+                  ) : (
+                    false
+                  )}
                 </div>
+
                 <div className="mb-[40px] pl-[50px]">
                   <button type="submit" className=" bg-[#DADADA] text-[#88888F] text-[18px] flex justify-center py-[16px] rounded-[12px] w-full hover:bg-[#60bad7] hover:text-white hover:font-bold">
                     Sign Up
