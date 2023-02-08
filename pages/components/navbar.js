@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import bell from "../../assets/bell.png";
-import man from "../../assets/man.png";
+import { HiOutlineUserCircle } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import http from "../../helper/http";
@@ -28,7 +28,7 @@ function Navbar() {
       </Link>
       <div className="lg:hidden flex flex-row-reverse">
         <div className="lg:mr-[20px]">
-          <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[25px] h-[25px]" />
+          {bio.picture ? <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[40px] h-[40px] rounded-[50%]" /> : <HiOutlineUserCircle className="w-[40px] h-[40px]" />}
         </div>
         <div className="flex flex-col items-center justify-center mr-3 lg:mr-[33px] ">
           <span className="text-[#3A3D42] text-[18px] leading-[31px] font-bold">{bio.firstName + " " + bio.lastName}</span>
@@ -40,7 +40,7 @@ function Navbar() {
       </div>
       <div className="hidden lg:flex">
         <div className="lg:mr-[20px]">
-          <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[25px] h-[25px]" />
+          <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[40px] h-[40px] rounded-[50%]" />
         </div>
         <div className="flex flex-col items-center justify-center mr-3 lg:mr-[33px] ">
           <span className="text-[#3A3D42] text-[18px] leading-[31px] font-bold">{bio.firstName + " " + bio.lastName}</span>

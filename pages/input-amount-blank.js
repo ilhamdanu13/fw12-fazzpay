@@ -17,20 +17,20 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import http from "../helper/http";
 import { useRouter } from "next/router";
-// import { useLocation } from "react-router-dom";
+import Sidebar from "./components/sidebar";
 
 function InputAmountBlank() {
-  // const router = useRouter();
-  // const token = useSelector((state) => state.auth.token);
-  // // const { state } = useLocation();
-  // const { id } = router.query;
-  // const [profile, setProfile] = useState({});
-  // const [sendTransfer, setSendTransfer] = useState([]);
+  const router = useRouter();
+  const token = useSelector((state) => state.auth.token);
 
-  // useEffect(() => {
-  //   getUserProfile();
-  //   getTransfer();
-  // }, [id]);
+  const { id } = router.query;
+  const [profile, setProfile] = useState({});
+  const [recipient, setRecipient] = useState({});
+
+  useEffect(() => {
+    // getUserProfile();
+    getRecipient();
+  }, [id]);
 
   // const getUserProfile = async () => {
   //   const { data } = await http(token).get(`https://68xkph-8888.preview.csb.app/profile/${id}`);
@@ -38,55 +38,19 @@ function InputAmountBlank() {
   //   setProfile(results);
   // };
 
-  // const getTransfer = async () => {
-  //   const { data } = await http(token).get(`https://68xkph-8888.preview.csb.app/transactions/transfer`);
-  //   const { results } = data;
-  //   setSendTransfer(results);
-  // };
+  const getRecipient = async () => {
+    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/transactions/recipient/", id);
+    const { results } = data;
+    setRecipient(results);
+  };
+  console.log(id);
+  console.log(recipient);
 
   return (
     <div className="font-nunitoSans">
       <Navbar />
       <div className="bg-[#f5f1f3] pt-[40px] md:flex">
-        <div className="pl-5 pr-3 md:pr-0 md:pl-[150px] md:mr-[20px] md:h-[690px] md:mb-[35px] mb-5">
-          <div className="block border-1 bg-white rounded-[25px] md:flex flex-col md:h-full">
-            <div className="flex-1">
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[52px] pl-[38px]">
-                <Image src={gridBlack} alt="grid" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7]">
-                  Dashboard
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px]">
-                <hr className="border-r-4 border-[#60bad7] h-[35px] mr-[33px]" />
-                <Image src={arrowUp} alt="arrowUp" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/search-receiver" className="text-[#60bad7] text-[18px] leading-[31px]">
-                  Transfer
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={plus} alt="plus" className="md:mr-[15px] w-[28px] h-[28px]" />
-                <Link href="top-up" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
-                  Top Up
-                </Link>
-              </button>
-              <button className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
-                <Image src={user} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/profile" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Profile
-                </Link>
-              </button>
-            </div>
-            <div className="pb-[50px]">
-              <button className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
-                <Image src={logOut} alt="user" className="mr-[23px] w-[28px] h-[28px]" />
-                <Link href="/login" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
-                  Logout
-                </Link>
-              </button>
-            </div>
-          </div>
-        </div>
+        <Sidebar />
 
         <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">

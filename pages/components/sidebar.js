@@ -24,7 +24,7 @@ const Sidebar = () => {
           </div>
           <div className="flex items-center pr-[96px] pt-5 md:pt-[64px] pl-[38px]">
             <BiPlus className="mr-7 w-[25px] h-[25px]" />
-            <Link href="top-up" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
+            <Link href="/top-up" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px] w-[100px]">
               Top Up
             </Link>
           </div>

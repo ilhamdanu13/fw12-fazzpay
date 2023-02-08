@@ -26,7 +26,7 @@ function Profile() {
   const router = useRouter();
 
   const [bio, setBio] = useState({});
-  console.log(bio);
+
   useEffect(() => {
     getBio().then((data) => {
       setBio(data.results);
