@@ -1,7 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { SlUser } from "react-icons/sl";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import { FiEdit2 } from "react-icons/fi";
 import withAuth from "../middleware/private-route";
 import React from "react";

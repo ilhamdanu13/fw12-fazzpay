@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import { SlUser } from "react-icons/sl";
 import Sidebar from "./components/sidebar";
 import Footer from "./components/footer";

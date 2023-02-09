@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import { FiEdit3 } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import arrowRight from "../assets/arrow-right2.png";
