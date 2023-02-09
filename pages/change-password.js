@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import lockInput from "../assets/lock-input.png";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { useRouter } from "next/router";
@@ -13,6 +12,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import Footer from "./components/footer";
+
 YupPassword(Yup);
 
 const passwordScheme = Yup.object().shape({

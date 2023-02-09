@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import Sidebar from "../components/sidebar";
 import Footer from "../components/footer";
-import men from "../../assets/man.png";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment/moment";

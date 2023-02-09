@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import men from "../assets/man.png";
 import failed from "../assets/failed.png";
 import Sidebar from "./components/sidebar";
