@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import phone from "../assets/phone2.png";
 import withAuth from "./middleware/private-route";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import Sidebar from "./components/sidebar";
+import Footer from "./components/footer";
 
 const phoneRegExpID = /^(^08)(\d{8,10})$/;
 
@@ -96,16 +96,7 @@ function UpdatePhoneNumber() {
           </div>
         </div>
       </div>
-
-      <footer className="pl-5 pr-3 md:pl-[150px] md:pr-[150px] md:py-[20px] bg-[#7a4c75]">
-        <div className="text-[#EFEFEFE5] text-[16px] leading-[28px] md:flex">
-          <div className="flex-1 mb-2 md:mb-0">2020 CluePay. All right reserved.</div>
-          <div className="font-semibold flex flex-col md:block">
-            <span className="mr-[40px] mb-1 md:mb-0">+62 5637 8882 9901</span>
-            <span>contact@cluepay.com</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
