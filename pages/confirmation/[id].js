@@ -15,7 +15,7 @@ import { SlUser } from "react-icons/sl";
 const Confirmation = () => {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
-  const note = useSelector((state) => state.transfer.note);
+  const notes = useSelector((state) => state.transfer.notes);
   const time = useSelector((state) => state.transfer.transferTime);
   const dataTransfer = useSelector((state) => state.transfer);
 
@@ -24,6 +24,7 @@ const Confirmation = () => {
   const [alertPin, setAlertPin] = useState(false);
   const [balanceLeft, setBalanceLeft] = useState(null);
   const [pin, setPin] = useState("");
+  const [alertNullPin, setAlertNullPin] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = router.query;
@@ -54,16 +55,23 @@ const Confirmation = () => {
     });
   }, [id]);
 
+  const cb = () => {
+    setTimeout(() => {
+      router.push("/success/" + id);
+    }, 1500);
+  };
   const tranfer = () => {
-    if (pin !== bio.pin) {
-      setAlertPin(true);
+    if (!bio.pin) {
+      console.log("buat pin dulu");
     } else {
       try {
         dispatch(transferAction({ ...dataTransfer, pin, token }));
         setBalanceLeft(bio.balance - amount);
-        setTimeout(() => {
-          router.push("/success/" + id);
-        }, 1500);
+        if (pin !== bio.pin) {
+          setAlertPin(true);
+          return;
+        }
+        cb();
       } catch (error) {
         setTimeout(() => {
           router.push("/failed/" + id);
@@ -125,47 +133,78 @@ const Confirmation = () => {
               <div className="flex border-1 shadow-md p-[15px] rounded-[10px] mb-[55px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Notes</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{note}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{notes}</p>
                 </div>
               </div>
-              <div className="mb-[25px] flex justify-end">
-                {/* The button to open modal */}
-                <label htmlFor="my-modal-3" className="btn hover:bg-[#60bad7] hover:border-[#60bad7]">
-                  Continue
-                </label>
+              {!bio.pin ? (
+                <div className="mb-[25px] flex justify-end">
+                  {/* The button to open modal */}
+                  <label htmlFor="my-modal-3" className="btn">
+                    Continue
+                  </label>
 
-                {/* Put this part before </body> tag */}
-                <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-                <div className="modal">
-                  <div className="modal-box relative">
-                    <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
-                      ✕
-                    </label>
-                    <h3 className="text-lg font-bold">Input PIN</h3>
-                    <div className="flex justify-center items-center">
-                      <input onChange={(e) => setPin(e.target.value)} name="pin" className="pl-5 text-[38px] w-1/3 focus:outline-none" />
-                      <hr />
-                    </div>
-                    {alertPin ? (
-                      <div className="alert alert-error shadow-lg mb-5">
-                        <div>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>Wrong PIN!</span>
-                        </div>
-                      </div>
-                    ) : (
-                      false
-                    )}
-                    <div className="flex justify-end items-end">
-                      <button onClick={tranfer} type="submit" className="btn hover:bg-[#60bad7] hover:border-[#60bad7]">
-                        Button
+                  {/* Put this part before </body> tag */}
+                  <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                  <div className="modal">
+                    <div className="modal-box relative">
+                      <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
+                        ✕
+                      </label>
+                      <h3 className="text-lg font-bold">Oops.. you haven't set PIN!</h3>
+                      <p className="py-4">Please set PIN before transfer...</p>
+                      <button onClick={() => router.push("/change-pin")} className="btn absolute right-3 top-20">
+                        Yay!
                       </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                false
+              )}
+
+              {bio.pin ? (
+                <div className="mb-[25px] flex justify-end">
+                  {/* The button to open modal */}
+                  <label htmlFor="my-modal-3" className="btn hover:bg-[#60bad7] hover:border-[#60bad7]">
+                    Continue
+                  </label>
+
+                  {/* Put this part before </body> tag */}
+                  <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+                  <div className="modal">
+                    <div className="modal-box relative">
+                      <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
+                        ✕
+                      </label>
+                      <h3 className="text-lg font-bold">Input PIN</h3>
+                      <div className="flex justify-center items-center">
+                        <input onChange={(e) => setPin(e.target.value)} name="pin" className="pl-5 text-[38px] w-1/3 focus:outline-none mb-3" />
+                        <hr />
+                      </div>
+
+                      {alertPin ? (
+                        <div className="alert alert-error shadow-lg mb-5">
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Wrong PIN!</span>
+                          </div>
+                        </div>
+                      ) : (
+                        false
+                      )}
+                      <div className="flex justify-end items-end">
+                        <button onClick={tranfer} type="submit" className="btn hover:bg-[#60bad7] hover:border-[#60bad7]">
+                          Yay!
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                false
+              )}
             </div>
           </div>
         </div>

@@ -4,25 +4,24 @@ import arrowUp2 from "../assets/arrow-up2.png";
 import plus2 from "../assets/plus2.png";
 import arrowUpGreen from "../assets/arrow-green.png";
 import arrowRed from "../assets/arrow-red.png";
-import men from "../assets/man.png";
-import woman from "../assets/woman.png";
-import netflix from "../assets/netflix.png";
-import adobe from "../assets/adobe.png";
+import { SlUser } from "react-icons/sl";
 import withAuth from "./middleware/private-route";
-import { logout as logoutAction } from "../redux/reducers/auth";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import http from "../helper/http";
-import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import Sidebar from "./components/sidebar";
+import jwtDecode from "jwt-decode";
+
 const Home = () => {
   const token = useSelector((state) => state.auth.token);
+  const decode = jwtDecode(token);
+  const userId = decode.id;
+  const [history, setHistory] = useState([]);
   const [bio, setBio] = useState({});
-  console.log(bio);
+
   useEffect(() => {
     getBio().then((data) => {
       setBio(data.results);
@@ -30,17 +29,32 @@ const Home = () => {
   }, []);
 
   const getBio = async () => {
-    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile");
+    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   };
 
-  const dispatch = useDispatch();
-  const router = useRouter();
-
-  const handlerLogout = () => {
-    dispatch(logoutAction());
-    router.push("/login");
+  const getHistory = async () => {
+    const { data } = await http(token).get("/transactions?page=1&limit=4", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
   };
+
+  useEffect(() => {
+    getHistory().then((data) => {
+      setHistory(data.results);
+    });
+  }, []);
+
+  const reformattedHistory = history.map(({ recipientId, amount }) => ({ [recipientId]: amount }));
+  console.log(reformattedHistory);
+
   return (
     <div className="bg-[#f5f1f3] ">
       <Navbar />
@@ -146,54 +160,28 @@ const Home = () => {
                     </Link>
                   </div>
                   <div>
-                    <div className="flex mb-[40px]">
-                      <div className="mr-[15px]">
-                        <Image src={men} alt="man" className="w-[56px] h-[56px]" />
+                    {history?.map((list, i) => (
+                      <div key={i} className="flex mb-[40px]">
+                        <div className="mr-[15px]">
+                          {list.recipientPicture ? (
+                            <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + list?.recipientPicture} width="70" height="70" alt="man" className="w-[45px] h-[45px] rounded-[50%]" />
+                          ) : (
+                            <SlUser className="w-[45px] h-[45px] text-[#dedede] rounded-[50%]" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-[#4D4B57] text-[14px] leading-[21px] font-bold mb-[9px]">{list.recipientname}</p>
+                          <p className="text-[#7A7886] text-[12px] leading-[19px]">{list.notes}</p>
+                        </div>
+                        <div className="flex items-center">
+                          {list.recipientId === userId ? (
+                            <span className=" font-bold text-[16px] leading-[21px] text-[#1EC15F] ">+ IDR.{list.amount}</span>
+                          ) : (
+                            <span className=" font-bold text-[16px] leading-[21px] text-red-500 ">- IDR.{list.amount}</span>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Ilham Danu</p>
-                        <p className="text-[#7A7886] text-[14px] leading-[19px]">Accept</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-[#1EC15F] font-bold text-[16px] leading-[21px]">+Rp50.000</span>
-                      </div>
-                    </div>
-                    <div className="flex mb-[40px]">
-                      <div className="mr-[15px]">
-                        <Image src={netflix} alt="netflix" className="" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Netflix</p>
-                        <p className="text-[#7A7886] text-[14px] leading-[19px]">Transfer</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-[#FF5B37] font-bold text-[16px] leading-[21px]">-Rp149.000</span>
-                      </div>
-                    </div>
-                    <div className="flex mb-[40px]">
-                      <div className="mr-[15px]">
-                        <Image src={woman} alt="woman" className="w-[56px] h-[56px]" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Amira Humara</p>
-                        <p className="text-[#7A7886] text-[14px] leading-[19px]">Accept</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-[#1EC15F] font-bold text-[16px] leading-[21px]">+Rp50.000</span>
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="mr-[15px]">
-                        <Image src={adobe} alt="adobe" className="" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">Ilham Danu</p>
-                        <p className="text-[#7A7886] text-[14px] leading-[19px]">Topup</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-[#FF5B37] font-bold text-[16px] leading-[21px]">+Rp249.000</span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

@@ -13,7 +13,7 @@ import Sidebar from "../components/sidebar";
 import Footer from "../components/footer";
 import { inputAmount } from "../../redux/reducers/transfer";
 
-function InputAmountBlank() {
+const InputAmountBlank = () => {
   const router = useRouter();
   const token = useSelector((state) => state?.auth?.token);
   const { id } = router.query;
@@ -21,6 +21,8 @@ function InputAmountBlank() {
   const [bio, setBio] = useState({});
   const [newAmount, setNewAmount] = useState("");
   const [newNote, setNewNote] = useState("");
+  const [alertAmount, setAlertAmount] = useState(false);
+  const [alertAmountMaximum, setAlertAmountMaximum] = useState(false);
   const [transferTime, setTranferTime] = useState(new Date());
 
   const dispatch = useDispatch();
@@ -48,17 +50,35 @@ function InputAmountBlank() {
     return data;
   };
 
+  const cb = () => {
+    setTimeout(() => {
+      router.push("/confirmation/" + id);
+    }, 3000);
+  };
   const fillAmount = (e) => {
     e.preventDefault();
-    dispatch(
-      inputAmount({
-        recipientId: id,
-        amount: newAmount,
-        note: newNote,
-        transferTime: transferTime,
-      })
-    );
-    router.push("/confirmation/" + id);
+    if (newAmount < 10000) {
+      setAlertAmount(true);
+      return;
+    }
+    try {
+      dispatch(
+        inputAmount({
+          recipientId: id,
+          amount: newAmount,
+          notes: newNote,
+          transferTime: transferTime,
+        })
+      );
+      if (newAmount > bio.balance) {
+        setAlertAmount(false);
+        setAlertAmountMaximum(true);
+        return;
+      }
+      cb();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log(recipient);
@@ -103,14 +123,16 @@ function InputAmountBlank() {
                     min="10000"
                     max={recipient.balance}
                     placeholder="0.00"
-                    className="text-[#6379F4] text-[42px] font-bold focus:outline-none text-center mb-[39px] "
+                    className="text-[#6379F4] text-[42px] font-bold focus:outline-none text-center mb-3"
                   />
+                  {alertAmount ? <div className="text-red-500 text-sm">Mininum transfer IDR.10000</div> : false}
+                  {alertAmountMaximum ? <div className="text-red-500 text-sm">Maximum transfer {bio.balance}</div> : false}
                   <p className="text-[#3A3D42] text-[16px] font-bold mb-[63px]">IDR.{bio.balance} Available</p>
                 </label>
                 <div className="w-1/2">
                   <div className="flex">
                     <FiEdit2 className="text-[#6379F4] text-[25px] mr-3" />
-                    <input name="note" onChange={(e) => setNewNote(e.target.value)} placeholder="Add some notes" className="text-[#6379F4] text-[16px] mb-[12px] focus:outline-none w-full" />
+                    <input name="notes" onChange={(e) => setNewNote(e.target.value)} placeholder="Add some notes" className="text-[#6379F4] text-[16px] mb-[12px] focus:outline-none w-full" />
                   </div>
 
                   <hr className=" w-full  mb-[96px]" />
@@ -126,6 +148,6 @@ function InputAmountBlank() {
       <Footer />
     </div>
   );
-}
+};
 
 export default withAuth(InputAmountBlank);

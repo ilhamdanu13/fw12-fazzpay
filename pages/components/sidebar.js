@@ -11,7 +11,7 @@ const Sidebar = () => {
         <div className="flex-1">
           <div className="flex items-center pr-[96px] pt-5 md:pt-[52px] pl-[38px]">
             <BiGridAlt className="mr-7 w-[25px] h-[25px]" />
-            <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7]">
+            <Link href="/home" className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px]">
               <span>Dashboard</span>
             </Link>
           </div>

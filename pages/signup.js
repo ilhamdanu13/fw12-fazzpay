@@ -36,9 +36,7 @@ function SignUp() {
     const cb = () => {
       setAlertEmail(false);
       setAlertSuccess(true);
-      setTimeout(() => {
-        console.log("daftarberhasil");
-      }, 3000);
+      setTimeout(() => {}, 3000);
       router.push("login");
     };
     try {

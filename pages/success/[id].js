@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
-import men from "../../assets/man.png";
 import success from "../../assets/success.png";
-import download from "../../assets/download2.png";
 import Sidebar from "../components/sidebar";
 import Footer from "../components/footer";
 import http from "../../helper/http";
@@ -17,9 +15,9 @@ import { SlUser } from "react-icons/sl";
 const Success = () => {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
-  const note = useSelector((state) => state.transfer.note);
+  const newAmount = Number(amount) - Number(amount);
+  const notes = useSelector((state) => state.transfer.notes);
   const time = useSelector((state) => state.transfer.transferTime);
-  //   const balanceLeft = useSelector((state) => state.transfer.balanceLeft);
   const dataTransfer = useSelector((state) => state.transfer);
 
   const [bio, setBio] = useState({});
@@ -79,7 +77,7 @@ const Success = () => {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Balance Left</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">nan</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{bio.balance - newAmount}</p>
                 </div>
               </div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
@@ -91,7 +89,7 @@ const Success = () => {
               <div className="flex border-1 shadow-md p-[15px] rounded-[10px] mb-[40px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Notes</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{note}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{notes}</p>
                 </div>
               </div>
               <div className="mb-[20px]">
@@ -106,7 +104,7 @@ const Success = () => {
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{recipient.firstName + "" + recipient.lastName}</p>
+                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{recipient.firstName + " " + recipient.lastName}</p>
                   <p className="text-[#7A7886] text-[14px] leading-[30px]">{recipient.phoneNumber}</p>
                 </div>
               </div>

@@ -3,7 +3,7 @@ import { transferAction } from "../actions/transfer";
 
 const initialState = {
   amount: "",
-  note: "",
+  notes: "",
   recipientId: "",
   pin: "",
   transferTime: "",
@@ -15,7 +15,7 @@ const transferReducer = createSlice({
     inputAmount: (state, { payload }) => {
       console.log(payload);
       state.amount = payload.amount;
-      state.note = payload.note;
+      state.notes = payload.notes;
       state.recipientId = payload.recipientId;
       state.transferTime = payload.transferTime;
     },

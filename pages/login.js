@@ -49,7 +49,7 @@ function Login() {
       setAlertWrong(false);
       setAlertSuccess(true);
     } catch (error) {
-      setErrMessage(err.message);
+      setErrMessage(error.message);
     }
   };
   const handleShow = () => {
