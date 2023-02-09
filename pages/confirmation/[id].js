@@ -150,7 +150,7 @@ const Confirmation = () => {
                       <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
                         ✕
                       </label>
-                      <h3 className="text-lg font-bold">Oops.. you haven't set PIN!</h3>
+                      <h3 className="text-lg font-bold">Oops.. you have not set PIN!</h3>
                       <p className="py-4">Please set PIN before transfer...</p>
                       <button onClick={() => router.push("/change-pin")} className="btn absolute right-3 top-20">
                         Yay!

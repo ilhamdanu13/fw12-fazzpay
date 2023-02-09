@@ -37,8 +37,8 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="md:flex font-nunitoSans py-5 md:py-0">
-      <div className="hidden md:block md:w-3/5 bg-no-repeat bg-cover bg-[#7a4c75] pt-[50px] pb-[100px]">
+    <div className="lg:flex font-nunitoSans py-5 lg:py-0">
+      <div className="hidden lg:block lg:w-3/5 bg-no-repeat bg-cover bg-[#7a4c75] pt-[50px] pb-[100px]">
         <div className="pl-[110px]">
           <span className="text-white text-[29px] leading-[40px] font-bold ">CluePay</span>
         </div>
@@ -55,10 +55,10 @@ const ResetPassword = () => {
         </div>
       </div>
       <div className="">
-        <div className="md:hidden pl-[50px] text-[32px] font-bold text-[#60bad7] leading-[50px]">CluePay</div>
-        <div className="md:pt-[121px] pl-[50px] mb-[63px] pr-[50px] md:pr-0">
-          <h2 className="md:w-[400px] text-[#3A3D42] text-[24px] leading-[42px] font-bold">Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</h2>
-          <p className="md:w-[420px] text-[#3A3D4299] text-[16px] leading-[30px]">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
+        <div className="lg:hidden pl-[50px] text-[32px] font-bold text-[#60bad7] leading-[50px]">CluePay</div>
+        <div className="lg:pt-[121px] pl-[50px] mb-[63px] pr-[50px] lg:pr-0">
+          <h2 className="lg:w-[400px] text-[#3A3D42] text-[24px] leading-[42px] font-bold">Did You Forgot Your Password? Don’t Worry, You Can Reset Your Password In a Minutes.</h2>
+          <p className="lg:w-[420px] text-[#3A3D4299] text-[16px] leading-[30px]">To reset your password, you must type your e-mail and we will send a link to your email and you will be directed to the reset password screens.</p>
         </div>
         <Formik
           initialValues={{
@@ -69,7 +69,7 @@ const ResetPassword = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              <div className="pl-[50px] pr-[50px] md:pr-[50px] mb-[90px]">
+              <div className="pl-[50px] pr-[50px] lg:pr-[50px] mb-[90px]">
                 <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={mailInput} alt="mail-input" className="mr-[20px]" />
                   <Field name="email" type="email" placeholder="Enter your e-mail" className="focus:outline-none w-full " />
@@ -88,7 +88,7 @@ const ResetPassword = () => {
               )}
               <div className="pl-[50px] pr-[50px]">
                 <div className="">
-                  <button type="submit" className="border-1 bg-[#DADADA] text-[#88888F] text-[18px] py-[16px] md:px-[240px] flex justify-center rounded-[12px] w-full">
+                  <button type="submit" className="border-1 bg-[#DADADA] text-[#88888F] text-[18px] py-[16px] lg:px-[240px] flex justify-center rounded-[12px] w-full">
                     Confirm
                   </button>
                 </div>
