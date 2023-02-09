@@ -71,7 +71,7 @@ function Profile() {
       <Navbar />
       <div className="lg:flex">
         <Sidebar />
-        <div className="pl-5 pr-3 lg:pl-0 lg:pr-[150px] w-full pb-5 lg:pb-[33px]">
+        <div className="pl-3 lg:pl-5 pr-3 lg:pl-0 lg:pr-[150px] w-full pb-5 lg:pb-[33px]">
           <div className="border-1 bg-white pt-[48px] pb-[75px] px-5 lg:px-[150px] rounded-[25px]">
             <div className="text-center mb-[50px]">
               <div className="flex justify-center">

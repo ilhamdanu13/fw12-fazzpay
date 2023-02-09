@@ -52,13 +52,13 @@ function UpdatePhoneNumber() {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
-        <div className="w-full pl-5 pr-3 pb-5  md:mb-[35px] md:pr-[150px] md:pb-0 md:pl-0">
+        <div className="w-full pl-3 lg:pl-5 pr-3 pb-5  lg:mb-[35px] lg:pr-[150px] lg:pb-0 ">
           <div className="border-1 bg-white p-[30px] rounded-[25px] pb-[230px]">
             <div className="mb-[123px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Edit Phone Number</p>
-              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Add at least one phone number for the transfer ID so you can start transfering your money to another user.</p>
+              <p className="text-[#7A7886] text-[16px] leading-[28px] lg:w-[342px]">Add at least one phone number for the transfer ID so you can start transfering your money to another user.</p>
             </div>
             <Formik
               initialValues={{
@@ -68,7 +68,7 @@ function UpdatePhoneNumber() {
               onSubmit={updatePhoneNumber}
             >
               {({ errors, touched }) => (
-                <Form className="md:px-[140px]">
+                <Form className="lg:px-[140px]">
                   <div className="mb-[63px]">
                     <label className="flex text-[#3A3D42] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={phone} alt="phone" className="mr-[20px]" />
@@ -86,7 +86,7 @@ function UpdatePhoneNumber() {
                     false
                   )}
                   <div>
-                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] px-[110px] md:px-[125px] rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold">
+                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] px-[110px] lg:px-[125px] rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold">
                       Edit Phone Number
                     </button>
                   </div>

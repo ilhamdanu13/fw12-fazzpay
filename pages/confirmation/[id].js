@@ -176,7 +176,7 @@ const Confirmation = () => {
                       </label>
                       <h3 className="text-lg font-bold">Input PIN</h3>
                       <div className="flex justify-center items-center">
-                        <input onChange={(e) => setPin(e.target.value)} name="pin" className="pl-5 text-[38px] w-1/3 focus:outline-none mb-3" />
+                        <input onChange={(e) => setPin(e.target.value)} name="pin" className="pl-5 text-[38px] w-1/2 lg:w-1/3 focus:outline-none mb-3" />
                         <hr />
                       </div>
 

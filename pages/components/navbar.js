@@ -8,11 +8,13 @@ import http from "../../helper/http";
 import arrowGreen from "../../assets/arrow-green.png";
 import arrowRed from "../../assets/arrow-red.png";
 import jwtDecode from "jwt-decode";
+import { useRouter } from "next/router";
 
 function Navbar() {
   const token = useSelector((state) => state?.auth?.token);
   const decode = jwtDecode(token);
   const userId = decode.id;
+  const router = useRouter();
   const [notification, setNotification] = useState([]);
   const [bio, setBio] = useState({});
   const [notif, setNotif] = useState(false);
@@ -52,20 +54,20 @@ function Navbar() {
       <Link href="/home" className="text-[29px] font-bold leading-[40px] text-[#60bad7] flex-1">
         CluePay
       </Link>
-      <div className="lg:hidden flex flex-row-reverse">
-        <div className="lg:mr-[20px]">
+      <div className="lg:hidden flex flex-row-reverse cursor-pointer">
+        <div onClick={() => router.push("/profile")} className="lg:mr-[20px]">
           {bio.picture ? <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[40px] h-[40px] rounded-[50%]" /> : <HiOutlineUserCircle className="w-[40px] h-[40px]" />}
         </div>
         <div className="flex flex-col items-center justify-center mr-3 lg:mr-[33px] ">
           <span className="text-[#3A3D42] text-[18px] leading-[31px] font-bold">{bio.firstName + " " + bio.lastName}</span>
           <span className="text-[#3A3D42E5] text-[13px] leading-[24px]">{bio.phoneNumber}</span>
         </div>
-        <div className="flex items-center pr-5 lg:pr-0">
+        <div onClick={showNotif} className="flex items-center pr-5 lg:pr-0">
           <Image src={bell} width={25} height={25} alt="bell" className="" />
         </div>
       </div>
       <div className="hidden lg:flex">
-        <div className="lg:mr-[20px]">
+        <div onClick={() => router.push("/profile")} className="lg:mr-[20px] cursor-pointer">
           {bio.picture ? <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} width="40" height="40" alt="profile" className="w-[40px] h-[40px] rounded-[50%]" /> : <HiOutlineUserCircle className="w-[40px] h-[40px]" />}
         </div>
         <div className="flex flex-col items-center justify-center mr-3 lg:mr-[33px] ">
@@ -77,7 +79,7 @@ function Navbar() {
         </div>
       </div>
       {notif ? (
-        <div className="absolute right-44 top-40 bg-white p-[30px] shadow-lg rounded-[20px]">
+        <div className="absolute lg:right-44 top-40 bg-white p-[30px] shadow-lg rounded-[20px]">
           {notification?.map((list, i) => (
             <div key={i} className="py-[20px] px-[25px] flex shadow-xl rounded-[10px]">
               <div className="flex flex-col">

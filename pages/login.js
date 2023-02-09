@@ -102,7 +102,7 @@ function Login() {
                 <div className="flex items-center text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                   <Field name="password" type={show ? "text" : "password"} placeholder="Enter your password" className="focus:outline-none w-full " />
-                  <label onClick={handleShow} className="absolute right-[20px]">
+                  <label onClick={handleShow} className="absolute right-5 lg:right-32">
                     {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                   </label>
                 </div>

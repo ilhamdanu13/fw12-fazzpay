@@ -3,27 +3,23 @@ import phone from "../assets/phone.png";
 import lock from "../assets/lock.png";
 import download from "../assets/download.png";
 import partners from "../assets/partners.png";
-import nominal from "../assets/nominal.png";
 import testi from "../assets/testi.png";
 import arrLeft from "../assets/arrow-left.png";
 import arrRight from "../assets/arrow-right.png";
-import previewProduct from "../assets/preview product.png";
 import peak from "../assets/peak.png";
 import Link from "next/link";
-//bg-[url('../assets/background.png')]
-import background from "../assets/background.png";
 import Footer from "./components/footer";
-function LandingPage() {
+const LandingPage = () => {
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#7a4c75] pb-[200px]">
-        <div className="relative px-3 lg:px-[150px] pt-[63px] flex mb-5 lg:mb-[177px]">
+        <div className="relative px-3 lg:px-[150px] pt-[63px] flex flex-col lg:flex-row mb-5 lg:mb-[177px]">
           <div className="text-[29px] font-bold text-white leading-[39.56px] flex-1">CluePay</div>
           <div className="text-white flex items-center">
-            <Link href="/login" className="border-2 py-[11px] px-[45px] rounded-[12px] mr-[30px] hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[47px]">
+            <Link href="/login" className="border-2 py-[11px] px-[24px] lg:px-[45px] rounded-[12px] mr-[30px] hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[47px]">
               Login
             </Link>
-            <Link href="/signup" className="border-2 py-[11px] px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[38px]">
+            <Link href="/signup" className="border-2 py-[11px] px-[24px] lg:px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-0 hover:py-[13px] hover:px-[38px]">
               Sign Up
             </Link>
           </div>
@@ -85,11 +81,11 @@ function LandingPage() {
           <Image src={partners} alt="partners" className="" />
         </div>
       </div>
-      <div className="bg-[#F5F1F3] pb-[120px]">
+      <div className="bg-[#F5F1F3] pb-5 lg:pb-[120px]">
         <div className="pt-14 lg:pt-[120px] flex justify-center mb-[50px]">
-          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[40px] lg:text-[68px] leading-[120px] px-[50px] lg:px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
+          <span className="border-1 bg-[#473AD10F] text-[#60bad7] text-[40px] text-[32px] lg:text-[68px] leading-[120px] px-3 lg:px-[50px] lg:px-[96px] py-[34px] rounded-[85px]">Rp. 390.736.500</span>
         </div>
-        <div className="lg:flex justify-center font-[800] mb-[30px]">
+        <div className="lg:flex justify-center font-[800] mb-5 lg:mb-[30px]">
           <p className="text-center text-[#60bad7] text-[30px] lg:text-[60px] leading-[93px] mr-5">Money </p>
           <p className="text-[30px] lg:text-[60px] text-center text-[#3A3D42] leading-[93px]">has Been Transfered.</p>
         </div>
@@ -97,13 +93,13 @@ function LandingPage() {
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px]">That amount of money has been transfered from all users. We still counting and going strong!</p>
         </div>
       </div>
-      <div className="bg-[#473AD10F] flex px-[120px]">
+      <div className="bg-[#473AD10F] flex flex-col lg:flex-row px-3 lg:px-[120px]">
         <div className="mr-[20px]">
-          <Image src={peak} alt="peak" className="pt-[120px]" />
+          <Image src={peak} alt="peak" className="pt-5 lg:pt-[120px]" />
         </div>
         <div className="pb-[50px]">
           <div className="text-[50px] font-[800] leading-[93px] pt-[90px] mb-[40px]">
-            <div className="flex">
+            <div className="flex flex-col lg:flex-row">
               <p className="text-[#3A3D42] mr-3">All The</p>
               <p className="text-[#60bad7]">Great</p>
             </div>
@@ -140,21 +136,21 @@ function LandingPage() {
           </div>
         </div>
       </div>
-      <div className="bg-[#f5f1f3] pb-[120px]">
-        <div className="flex justify-center pt-[120px] mb-[30px]">
+      <div className="bg-[#f5f1f3] pb-5 lg:pb-[120px]">
+        <div className="flex flex-col lg:flex-row justify-center pt-5 lg:pt-[120px] mb-5 lg:mb-[30px] px-3 lg:px-0">
           <p className="text-[#3A3D42] text-[60px] font-[800] leading-[93px] mr-4">What Users are</p>
           <p className="text-[#60bad7] text-[60px] font-[800] leading-[93px]">Saying.</p>
         </div>
         <div className="flex justify-center text-center mb-[60px]">
           <p className="text-[#3A3D42] text-[18px] leading-[31px] w-[550px]">We have some great features from the application and it’s totally free to use by all users around the world.</p>
         </div>
-        <div className="flex items-center px-[120px]">
-          <div className="mr-[46px]">
+        <div className="flex items-center px-3 lg:px-[120px]">
+          <div className="mr-3 lg:mr-[46px]">
             <button className="border-1 bg-white rounded-[20px] w-[30px] h-[30px]">
               <Image src={arrLeft} alt="arrLeft" />
             </button>
           </div>
-          <div className="mr-[46px]">
+          <div className="mr-3 lg:mr-[46px]">
             <div className="border-1 bg-white p-[60px] text-center rounded-[30px]">
               <Image src={testi} alt="testi" className="inline-block mb-[30px]" />
               <p className="text-[26px] font-bold leading-[40px] mb-[10px] text-[#373C46]">Alex Hansinburg</p>
@@ -175,6 +171,6 @@ function LandingPage() {
       <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;

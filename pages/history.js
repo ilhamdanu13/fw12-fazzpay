@@ -52,7 +52,7 @@ const History = () => {
         <div className="pt-3 md:pt-[40px] md:flex font-nunitoSans">
           <Sidebar />
 
-          <div className="w-full pb-5 md:pb-0 md:mb-[35px] pl-5 md:pl-0 pr-3 md:pr-[150px]">
+          <div className="w-full pb-5 md:pb-0 md:mb-[35px] pl-3 lg:pl-5 md:pl-0 pr-3 md:pr-[150px]">
             <div className="border-1 bg-white p-[30px] rounded-[25px]">
               <div className="flex mb-[40px]">
                 <p className="flex-1 text-[#3A3D42] text-[18px] leading-[25px] font-bold">Transaction History</p>
@@ -90,8 +90,8 @@ const History = () => {
           </div>
         </div>
         <div className="bg-[#f5f1f3] flex mb-7">
-          <div className="w-1/2"></div>
-          <div className="w-1/2 flex  px-[100px]">
+          <div className="lg:w-1/2"></div>
+          <div className="lg:w-1/2 flex px-3 lg:px-[100px]">
             <BsArrowLeftCircle onClick={prevPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
             <BsArrowRightCircle onClick={nextPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
           </div>

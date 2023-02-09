@@ -77,13 +77,13 @@ const ChangePassword = () => {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
-        <div className="w-full pl-5 pr-3 pb-5 md:mb-[35px] md:pr-[150px] md:pl-0 md:pb-0">
+        <div className="w-full pl-3 lg:pl-5 pr-3 pb-5 lg:mb-[35px] lg:pr-[150px] lg:pl-0 lg:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px] pb-[63px]">
             <div className="mb-[104px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Change Password</p>
-              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">You must enter your current password and then type your new password twice.</p>
+              <p className="text-[#7A7886] text-[16px] leading-[28px] lg:w-[342px]">You must enter your current password and then type your new password twice.</p>
             </div>
             <Formik
               initialValues={{
@@ -95,12 +95,12 @@ const ChangePassword = () => {
               onSubmit={resetPassword}
             >
               {({ errors, touched }) => (
-                <Form className="md:px-[140px]">
+                <Form className="lg:px-[140px]">
                   <div className="mb-[63px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                       <Field name="currentPassword" type={showFirst ? "text" : "Password"} placeholder="Current password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowFirst} className="absolute right-80">
+                      <div onClick={handleShowFirst} className="absolute right-12 lg:right-80">
                         {showFirst ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -110,7 +110,7 @@ const ChangePassword = () => {
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                       <Field name="newPassword" type={showSecond ? "text" : "Password"} placeholder="New password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowSecond} className="absolute right-80">
+                      <div onClick={handleShowSecond} className="absolute right-12 lg:right-80">
                         {showSecond ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -121,7 +121,7 @@ const ChangePassword = () => {
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                       <Field name="confirmPassword" type={showThird ? "text" : "Password"} placeholder="Repeat new password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowThird} className="absolute right-80">
+                      <div onClick={handleShowThird} className="absolute right-12 lg:right-80">
                         {showThird ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -150,7 +150,7 @@ const ChangePassword = () => {
                     false
                   )}
                   <div>
-                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] px-[110px] md:px-[130px] rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold">
+                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] px-[110px] lg:px-[130px] rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold">
                       Change Password
                     </button>
                   </div>

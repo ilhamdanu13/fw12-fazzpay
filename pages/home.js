@@ -58,11 +58,11 @@ const Home = () => {
   return (
     <div className="bg-[#f5f1f3] ">
       <Navbar />
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         <Sidebar />
-        <div className=" md:flex font-nunitoSans">
-          <div className="pl-5 pr-3 md:pl-0 md:pr-[150px] md:mb-[35px]">
-            <div className="border-1 bg-[#7a4c75] md:flex rounded-[20px] mb-[20px]">
+        <div className=" flex font-nunitoSans w-full">
+          <div className="pl-3 lg:pl-5 pr-3 lg:pr-[150px] lg:mb-[35px]">
+            <div className="border-1 bg-[#7a4c75] flex flex-col lg:flex-row rounded-[20px] mb-[20px]">
               <div className="flex-1">
                 <div className="flex flex-col p-[30px]">
                   <span className="text-[#E0E0E0] text-[18px] leading-[31px] mb-[10px]">Balance</span>
@@ -85,10 +85,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="md:flex  md:pr-0">
-              <div className="w-full md:w-[463px] mr-[20px]">
-                <div className="border-1 bg-white rounded-[25px] mb-3 md:mb-0">
-                  <div className="pl-[35px] pt-[44px] flex pr-[39px] mb-[60px]">
+            <div className="flex flex-col lg:flex-row">
+              <div className="w-full lg:w-[463px] lg:mr-[20px]">
+                <div className="border-1 bg-white rounded-[25px] mb-3 lg:mb-0">
+                  <div className="pl-3 lg:pl-[35px] pt-[44px] flex pr-3 lg:pr-[39px] mb-[60px] ">
                     <div className="flex-1">
                       <Image src={arrowUpGreen} alt="arrowup" className="mb-[15px]" />
                       <p className="text-[#6A6A6A] text-[14px] leading-[19px] mb-[8px]">Income</p>
@@ -101,7 +101,7 @@ const Home = () => {
                     </div>
                   </div>
                   <div className="">
-                    <div className="flex mb-[15px] pl-[66px] md:pr-[39px]">
+                    <div className="flex mb-[15px] pl-7 lg:pl-[66px] lg:pr-[39px]">
                       <div className="mr-[30px]">
                         <div className="border-1 bg-[#cd7389] w-[14px] h-[220px] rounded-[6px]"></div>
                       </div>
@@ -125,23 +125,23 @@ const Home = () => {
                         <div className="border-1 bg-[#fadba9] w-[14px] h-[155px] rounded-[6px]"></div>
                       </div>
                     </div>
-                    <div className="text-[14px] text-[#60bad7] flex pl-[60px] pb-[13px]">
-                      <div className="mr-[25px]">
+                    <div className="text-[14px] text-[#60bad7] flex pl-5 lg:pl-[60px] pb-[13px]">
+                      <div className="lg:mr-[25px] mr-5">
                         <p>Sat</p>
                       </div>
-                      <div className="mr-[18px]">
+                      <div className="lg:mr-[18px] mr-5">
                         <p>Sun</p>
                       </div>
-                      <div className="mr-[18px]">
+                      <div className="lg:mr-[18px] mr-5">
                         <p>Mon</p>
                       </div>
-                      <div className="mr-[18px]">
+                      <div className="lg:mr-[18px] mr-5">
                         <p>Tue</p>
                       </div>
-                      <div className="mr-[18px]">
+                      <div className="lg:mr-[18px] mr-5">
                         <p>Wed</p>
                       </div>
-                      <div className="mr-[22px]">
+                      <div className="lg:mr-[22px] mr-5">
                         <p>Thu</p>
                       </div>
                       <div className="">
@@ -151,7 +151,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full md:mb-[35px] pb-5 md:pb-0">
+              <div className="w-full lg:mb-[35px] pb-5 lg:pb-0">
                 <div className="border-1 bg-white p-[30px] rounded-[25px]">
                   <div className="flex mb-[40px]">
                     <p className="flex-1 text-[#3A3D42] text-[18px] leading-[25px] font-bold">Transaction History</p>

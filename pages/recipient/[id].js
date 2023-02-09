@@ -86,11 +86,11 @@ const InputAmountBlank = () => {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
 
-        <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
-          <div className="border-1 bg-white p-[30px] rounded-[25px]">
+        <div className="w-full pb-5 pl-3 pr-3 lg:mb-[35px] lg:pr-[150px]">
+          <div className="border-1 bg-white p-5 lg:p-[30px] rounded-[25px]">
             <div className="mb-[40px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Transfer Money</p>
             </div>

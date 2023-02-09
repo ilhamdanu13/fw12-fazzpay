@@ -29,10 +29,10 @@ const TopUp = () => {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
 
-        <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
+        <div className="w-full pb-5 pl-5 pr-3 lg:pb-0 lg:mb-[35px] lg:pr-[150px] lg:pr-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
             <button onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px] mb-5">
               <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Top Up</p>
@@ -40,9 +40,9 @@ const TopUp = () => {
             <div>
               <p className="text-[#3A3D4299] text-[16px]">Enter the amount of money, and click submit</p>
 
-              <ReactModal isOpen={topUp} className="pl-7 md:ml-[450px] md:mt-[80px] outline-none rounded-[20px] w-max">
-                <div className="w-full  pl-5 pr-3 pb-5 md:pr-[150px]">
-                  <div className="border-1 bg-white p-[30px]  rounded-[25px]">
+              <ReactModal isOpen={topUp} className="pl-3 lg:pl-7 lg:ml-[450px] mt-5 lg:mt-[80px] outline-none rounded-[20px] w-max">
+                <div className="w-full lg:pl-5 pr-3 pb-5 lg:pr-[150px]">
+                  <div className="border-1 bg-white lg:p-[30px]  rounded-[25px]">
                     <div className="flex">
                       <div className="mb-[50px] flex-1">
                         <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Topup</p>

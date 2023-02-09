@@ -84,8 +84,8 @@ function SearchReceiver() {
           </div>
         </div>
         <div className="bg-[#f5f1f3] flex mb-7">
-          <div className="w-1/2"></div>
-          <div className="w-1/2 flex  px-[100px]">
+          <div className="lg:w-1/2"></div>
+          <div className="lg:w-1/2 flex px-3 lg:px-[100px]">
             <BsArrowLeftCircle onClick={prevPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
             <BsArrowRightCircle onClick={nextPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
           </div>

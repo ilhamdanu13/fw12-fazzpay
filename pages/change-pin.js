@@ -32,13 +32,13 @@ const ChangePin = () => {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
-        <div className="w-full md:mb-[35px] pl-5 pr-3 pb-5 md:pr-[150px]">
+        <div className="w-full lg:mb-[35px] pl-3 lg:pl-5 pr-3 pb-5 lg:pr-[150px]">
           <div className="border-1 bg-white p-[30px] pb-[220px] rounded-[25px]">
             <div className="mb-[50px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Change PIN</p>
-              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Enter your 6 digits CluePay PIN below to continue to the next steps.</p>
+              <p className="text-[#7A7886] text-[16px] leading-[28px] lg:w-[342px]">Enter your 6 digits CluePay PIN below to continue to the next steps.</p>
             </div>
             {alertSuccess ? (
               <div className="bg-green-200 border-2 border-green-500 py-3 flex justify-center items-center mb-7 rounded">
@@ -55,7 +55,7 @@ const ChangePin = () => {
               {({ errors, touched }) => (
                 <Form>
                   <div className="flex flex-col justify-center items-center mb-7">
-                    <Field name="newPin" className="py-3 border-b-2 text-[48px] leading-[50px] tracking-widest focus:outline-none w-1/3 px-3" />
+                    <Field name="newPin" className="py-3 border-b-2 text-[48px] leading-[50px] tracking-widest focus:outline-none w-[200px] lg:w-1/3 px-3" />
                     {errors.newPin && touched.newPin ? <div className="text-red-500 text-sm">{errors.newPin}</div> : null}
                   </div>
 

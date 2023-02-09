@@ -57,9 +57,9 @@ const Success = () => {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
-        <div className="w-full pl-5 pr-3 pb-5 md:mb-[35px] md:pr-[150px] md:pr-0 md:pb-0">
+        <div className="w-full pl-3 lg:pl-5 pr-3 pb-5 lg:mb-[35px] lg:pr-[150px] lg:pr-0 lg:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
             <div>
               <div className="flex justify-center mb-[40px]">
@@ -109,11 +109,11 @@ const Success = () => {
                 </div>
               </div>
               <div className=" flex justify-end hover:text-white">
-                <button className="group border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-5 md:px-[48px] text-[16px] leading-[25px] font-bold rounded-[12px] flex mr-[20px]">
+                <button className="group border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-5 lg:px-[48px] text-[16px] leading-[25px] font-bold rounded-[12px] flex mr-[20px]">
                   <RxDownload className="mr-[15px] w-[25px] h-[25px] text-[#cd7389] group-hover:text-white duration-300" />
                   <p className="text-[18px] font-bold leading-[24px] text-[#cd7389] group-hover:text-white duration-300">Download PDF</p>
                 </button>
-                <Link href="/home" className="border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-7 md:px-[48px] text-[#cd7389] hover:text-white text-[16px] leading-[25px] font-bold rounded-[12px] duration-300">
+                <Link href="/home" className="border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-7 lg:px-[48px] text-[#cd7389] hover:text-white text-[16px] leading-[25px] font-bold rounded-[12px] duration-300">
                   Back to Home
                 </Link>
               </div>

@@ -1,11 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/navbar";
-import plus from "../assets/plus.png";
-import userBlue from "../assets/user-blue.png";
-import logOut from "../assets/log-out.png";
-import gridBlack from "../assets/grid-black.png";
-import arrowUp from "../assets/arrow-up.png";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import http from "../helper/http";
@@ -29,13 +23,13 @@ function PersonalInfo() {
   return (
     <div className="font-nunitoSans">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
         <Sidebar />
-        <div className="w-full pl-5 pr-3 pb-5 md:mb-[35px] md:pr-[150px] md:pl-0 md:pb-0">
+        <div className="w-full pl-3 lg:pl-5 pr-3 pb-5 lg:mb-[35px] lg:pr-[150px] lg:pl-0 lg:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
             <div className="mb-[40px]">
               <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Personal Information</p>
-              <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">We got your personal information from the sign up proccess. If you want to make changes on your information, contact our support.</p>
+              <p className="text-[#7A7886] text-[16px] leading-[28px] lg:w-[342px]">We got your personal information from the sign up proccess. If you want to make changes on your information, contact our support.</p>
             </div>
             <div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
