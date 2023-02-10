@@ -27,6 +27,8 @@ function Login() {
   const router = useRouter();
 
   const cb = () => {
+    setAlertWrong(false);
+    setAlertSuccess(true);
     setTimeout(() => {
       router.push("/home");
     }, 3000);
@@ -42,14 +44,11 @@ function Login() {
 
       if (results.payload.startsWith("Wrong")) {
         setAlertWrong(true);
-        setErrMessage(results.payload);
         return;
       }
       cb();
-      setAlertWrong(false);
-      setAlertSuccess(true);
     } catch (error) {
-      setErrMessage(error.message);
+      console.lo(error);
     }
   };
   const handleShow = () => {
@@ -102,7 +101,7 @@ function Login() {
                 <div className="flex items-center text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                   <Field name="password" type={show ? "text" : "password"} placeholder="Enter your password" className="focus:outline-none w-full " />
-                  <label onClick={handleShow} className="absolute right-5 lg:right-32">
+                  <label onClick={handleShow} className="absolute right-5 lg:right-24">
                     {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                   </label>
                 </div>
@@ -116,14 +115,14 @@ function Login() {
               </div>
               {alertSuccess ? (
                 <div className="mb-5 bg-green-200 border-2 border-green-500 rounded">
-                  <div className="py-3 flex justify-center items-center">{errMessage}</div>
+                  <div className="py-3 flex justify-center items-center">Login success</div>
                 </div>
               ) : (
                 false
               )}
               {alertWrong ? (
                 <div className="mb-5 bg-red-200 border-2 border-red-500 rounded">
-                  <div className="py-3 flex justify-center items-center">{errMessage}</div>
+                  <div className="py-3 flex justify-center items-center">Wrong email or password</div>
                 </div>
               ) : (
                 false
