@@ -1,20 +1,18 @@
-import Image from "next/image";
-import Navbar from "./components/navbar";
-import { SlUser } from "react-icons/sl";
-import Sidebar from "./components/sidebar";
-import Footer from "./components/footer";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import http from "../helper/http";
-import { useRouter } from "next/router";
-import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
-import jwtDecode from "jwt-decode";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { SlUser } from 'react-icons/sl';
+import { useSelector } from 'react-redux';
+import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
+import jwtDecode from 'jwt-decode';
+import Footer from './components/footer';
+import Sidebar from './components/sidebar';
+import Navbar from './components/navbar';
+import http from '../helper/http';
 
-const History = () => {
+function History() {
   const token = useSelector((state) => state?.auth?.token);
   const decode = jwtDecode(token);
   const userId = decode.id;
-  const router = useRouter();
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -43,8 +41,7 @@ const History = () => {
     }
     setPage(page - 1);
   };
-  console.log(history);
-  console.log(userId);
+
   return (
     <div>
       <div className="bg-[#f5f1f3] ">
@@ -67,7 +64,7 @@ const History = () => {
                   <div key={i} className="flex mb-[40px]">
                     <div className="mr-[15px]">
                       {list.recipientPicture ? (
-                        <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + list?.recipientPicture} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
+                        <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${list?.recipientPicture}`} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
                       ) : (
                         <SlUser className="w-[70px] h-[70px] text-[#dedede] " />
                       )}
@@ -78,9 +75,15 @@ const History = () => {
                     </div>
                     <div className="flex items-center">
                       {list.recipientId === userId ? (
-                        <span className=" font-bold text-[16px] leading-[21px] text-[#1EC15F] ">+ IDR.{list.amount}</span>
+                        <span className=" font-bold text-[16px] leading-[21px] text-[#1EC15F] ">
+                          + IDR.
+                          {list.amount}
+                        </span>
                       ) : (
-                        <span className=" font-bold text-[16px] leading-[21px] text-red-500 ">- IDR.{list.amount}</span>
+                        <span className=" font-bold text-[16px] leading-[21px] text-red-500 ">
+                          - IDR.
+                          {list.amount}
+                        </span>
                       )}
                     </div>
                   </div>
@@ -90,7 +93,7 @@ const History = () => {
           </div>
         </div>
         <div className="bg-[#f5f1f3] flex mb-7">
-          <div className="lg:w-1/2"></div>
+          <div className="lg:w-1/2" />
           <div className="lg:w-1/2 flex px-3 lg:px-[100px]">
             <BsArrowLeftCircle onClick={prevPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
             <BsArrowRightCircle onClick={nextPage} className="w-[40px] h-[40px]  rounded-[50%] mr-7 hover:bg-[#7a4c75] hover:text-white duration-300 hover:shadow-lg cursor-pointer" />
@@ -100,6 +103,6 @@ const History = () => {
       </div>
     </div>
   );
-};
+}
 
 export default History;

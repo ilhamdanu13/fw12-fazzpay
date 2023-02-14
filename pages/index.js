@@ -1,15 +1,18 @@
-import Image from "next/image";
-import phone from "../assets/phone.png";
-import lock from "../assets/lock.png";
-import download from "../assets/download.png";
-import partners from "../assets/partners.png";
-import testi from "../assets/testi.png";
-import arrLeft from "../assets/arrow-left.png";
-import arrRight from "../assets/arrow-right.png";
-import peak from "../assets/peak.png";
-import Link from "next/link";
-import Footer from "./components/footer";
-const LandingPage = () => {
+/* eslint-disable max-len */
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import phone from '../assets/phone.png';
+import lock from '../assets/lock.png';
+import download from '../assets/download.png';
+import partners from '../assets/partners.png';
+import testi from '../assets/testi.png';
+import arrLeft from '../assets/arrow-left.png';
+import arrRight from '../assets/arrow-right.png';
+import peak from '../assets/peak.png';
+import Footer from './components/footer';
+
+function LandingPage() {
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#7a4c75] pb-[200px]">
@@ -33,7 +36,7 @@ const LandingPage = () => {
           <p className="text-[18px] leading-[31px] text-white">that oftenly wasting much of your times.</p>
         </div>
         <div className="relative text-white flex justify-center">
-          <Link href="#" className="border-2 py-[11px] px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-1">
+          <Link href="home" className="border-2 py-[11px] px-[36px] rounded-[12px]  hover:text-[#7a4c75] hover:bg-white hover:border-1">
             Try it free
           </Link>
         </div>
@@ -146,7 +149,7 @@ const LandingPage = () => {
         </div>
         <div className="flex items-center px-3 lg:px-[120px]">
           <div className="mr-3 lg:mr-[46px]">
-            <button className="border-1 bg-white rounded-[20px] w-[30px] h-[30px]">
+            <button type="submit" className="border-1 bg-white rounded-[20px] w-[30px] h-[30px]">
               <Image src={arrLeft} alt="arrLeft" />
             </button>
           </div>
@@ -162,7 +165,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="">
-            <button className="border-1 bg-white rounded-[20px] w-[30px] h-[30px]">
+            <button type="submit" className="border-1 bg-white rounded-[20px] w-[30px] h-[30px]">
               <Image src={arrRight} alt="arrRight" />
             </button>
           </div>
@@ -171,6 +174,6 @@ const LandingPage = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default LandingPage;

@@ -1,17 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { registerAction, loginAction } from "../actions/auth";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import { registerAction, loginAction } from '../actions/auth';
 
 const initialState = {
   token: null,
 };
 
 const authReducer = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    logout: () => {
-      return initialState;
-    },
+    logout: () => initialState,
   },
   extraReducers: (build) => {
     build.addCase(loginAction.fulfilled, (state, { payload }) => {

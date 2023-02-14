@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { transferAction } from "../actions/transfer";
+/* eslint-disable no-return-assign */
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import { transferAction } from '../actions/transfer';
 
 const initialState = {
-  amount: "",
-  notes: "",
-  recipientId: "",
-  pin: "",
-  transferTime: "",
+  amount: '',
+  notes: '',
+  recipientId: '',
+  pin: '',
+  transferTime: '',
 };
 const transferReducer = createSlice({
-  name: "transfer",
+  name: 'transfer',
   initialState,
   reducers: {
     inputAmount: (state, { payload }) => {
-      console.log(payload);
       state.amount = payload.amount;
       state.notes = payload.notes;
       state.recipientId = payload.recipientId;

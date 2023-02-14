@@ -1,16 +1,18 @@
-import Image from "next/image";
-import Navbar from "../components/navbar";
-import Sidebar from "../components/sidebar";
-import Footer from "../components/footer";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import moment from "moment/moment";
-import http from "../../helper/http";
-import { useRouter } from "next/router";
-import { transferAction } from "../../redux/actions/transfer";
-import { SlUser } from "react-icons/sl";
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment/moment';
+import React, { useRouter } from 'next/router';
+import { SlUser } from 'react-icons/sl';
+import Navbar from '../components/navbar';
+import Sidebar from '../components/sidebar';
+import Footer from '../components/footer';
+import http from '../../helper/http';
+import { transferAction } from '../../redux/actions/transfer';
 
-const Confirmation = () => {
+function Confirmation() {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
   const notes = useSelector((state) => state.transfer.notes);
@@ -21,14 +23,13 @@ const Confirmation = () => {
   const [recipient, setRecipient] = useState({});
   const [alertPin, setAlertPin] = useState(false);
   const [balanceLeft, setBalanceLeft] = useState(null);
-  const [pin, setPin] = useState("");
-  const [alertNullPin, setAlertNullPin] = useState(false);
+  const [pin, setPin] = useState('');
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = router.query;
 
   const getBio = async () => {
-    const { data } = await http(token).get("/profile", {
+    const { data } = await http(token).get('/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -55,12 +56,12 @@ const Confirmation = () => {
 
   const cb = () => {
     setTimeout(() => {
-      router.push("/success/" + id);
+      router.push(`/success/${id}`);
     }, 1500);
   };
   const tranfer = () => {
     if (!bio.pin) {
-      console.log("buat pin dulu");
+      console.log('buat pin dulu');
     } else {
       try {
         dispatch(transferAction({ ...dataTransfer, pin, token }));
@@ -72,15 +73,12 @@ const Confirmation = () => {
         cb();
       } catch (error) {
         setTimeout(() => {
-          router.push("/failed/" + id);
+          router.push(`/failed/${id}`);
         }, 1500);
         console.log(error);
       }
     }
   };
-
-  console.log(recipient);
-  console.log(bio);
 
   return (
     <div className="font-nunitoSans">
@@ -97,13 +95,13 @@ const Confirmation = () => {
               <div className="flex mb-[40px] border-1 shadow-md p-[20px] rounded-[10px]">
                 <div className="mr-[15px]">
                   {recipient.picture ? (
-                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + recipient.picture} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
+                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${recipient.picture}`} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
                   ) : (
                     <SlUser className="w-[70px] h-[70px] text-[#dedede] rounded-[50%] " />
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{recipient.firstName + " " + recipient.lastName}</p>
+                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{`${recipient.firstName} ${recipient.lastName}`}</p>
                   <p className="text-[#7A7886] text-[14px] leading-[30px]">{recipient.phoneNumber}</p>
                 </div>
               </div>
@@ -113,7 +111,10 @@ const Confirmation = () => {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Amount</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">IDR.{amount}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">
+                    IDR.
+                    {amount}
+                  </p>
                 </div>
               </div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
@@ -125,7 +126,7 @@ const Confirmation = () => {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Date & Time</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{moment(time).format("LLL")}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{moment(time).format('LLL')}</p>
                 </div>
               </div>
               <div className="flex border-1 shadow-md p-[15px] rounded-[10px] mb-[55px]">
@@ -150,7 +151,7 @@ const Confirmation = () => {
                       </label>
                       <h3 className="text-lg font-bold">Oops.. you have not set PIN!</h3>
                       <p className="py-4">Please set PIN before transfer...</p>
-                      <button onClick={() => router.push("/change-pin")} className="btn absolute right-3 top-20">
+                      <button type="submit" onClick={() => router.push('/change-pin')} className="btn absolute right-3 top-20">
                         Yay!
                       </button>
                     </div>
@@ -210,6 +211,6 @@ const Confirmation = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Confirmation;

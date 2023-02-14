@@ -1,18 +1,19 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "./components/navbar";
-import { FiEdit3 } from "react-icons/fi";
-import { HiOutlineUserCircle } from "react-icons/hi";
-import arrowRight from "../assets/arrow-right2.png";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logout as logoutAction } from "../redux/reducers/auth";
-import http from "../helper/http";
-import withAuth from "./middleware/private-route";
-import Sidebar from "./components/sidebar";
-import Footer from "./components/footer";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiEdit3 } from 'react-icons/fi';
+import { HiOutlineUserCircle } from 'react-icons/hi';
+import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import arrowRight from '../assets/arrow-right2.png';
+import Navbar from './components/navbar';
+import { logout as logoutAction } from '../redux/reducers/auth';
+import http from '../helper/http';
+import withAuth from './middleware/private-route';
+import Sidebar from './components/sidebar';
+import Footer from './components/footer';
 
 function Profile() {
   const token = useSelector((state) => state?.auth?.token);
@@ -24,20 +25,20 @@ function Profile() {
 
   const [bio, setBio] = useState({});
 
-  useEffect(() => {
-    getBio().then((data) => {
-      setBio(data.results);
-    });
-  }, []);
-
   const getBio = async () => {
-    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile", {
+    const { data } = await http(token).get('https://68xkph-8888.preview.csb.app/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     return data;
   };
+
+  useEffect(() => {
+    getBio().then((data) => {
+      setBio(data.results);
+    });
+  }, []);
 
   const upload = async (e) => {
     e.preventDefault();
@@ -48,8 +49,8 @@ function Profile() {
     } else {
       try {
         const form = new FormData();
-        form.append("picture", file);
-        const { data } = await http(token).post("/profile", form);
+        form.append('picture', file);
+        const { data } = await http(token).post('/profile', form);
         setAlertSize(false);
         setAlertSuccess(true);
         setTimeout(() => {
@@ -75,7 +76,7 @@ function Profile() {
           <div className="border-1 bg-white pt-[48px] pb-[75px] px-5 lg:px-[150px] rounded-[25px]">
             <div className="text-center mb-[50px]">
               <div className="flex justify-center">
-                {bio.picture ? <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + bio?.picture} alt="profile" width="80" height="80" className="w-[80px] h-[80px]" /> : <HiOutlineUserCircle className="w-[80px] h-[80px]" />}
+                {bio.picture ? <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${bio?.picture}`} alt="profile" width="80" height="80" className="w-[80px] h-[80px]" /> : <HiOutlineUserCircle className="w-[80px] h-[80px]" />}
               </div>
 
               {/* The button to open modal */}
@@ -115,7 +116,7 @@ function Profile() {
                 </div>
               </div>
               <div>
-                <p className="text-[24px] text-[#4D4B57] leading-[32px] mb-[10px]">{bio.firstName + " " + bio.lastName}</p>
+                <p className="text-[24px] text-[#4D4B57] leading-[32px] mb-[10px]">{`${bio.firstName} ${bio.lastName}`}</p>
                 <p className="text-[#7A7886] text-[16px] leading-[27px]">{bio.phoneNumber}</p>
               </div>
             </div>
@@ -144,7 +145,7 @@ function Profile() {
               </Link>
             </div>
             <div>
-              <button onClick={handleLogout} className=" w-full">
+              <button type="submit" onClick={handleLogout} className=" w-full">
                 <div className="px-[20px] py-[18px] flex border-1 bg-[#E5E8ED] items-center rounded-[10px]">
                   <p className="flex-1 text-[#4D4B57] text-[16px] font-bold leading-[28px]">Logout</p>
                 </div>

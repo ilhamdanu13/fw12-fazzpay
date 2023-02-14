@@ -1,14 +1,14 @@
-import Navbar from "./components/navbar";
-import withAuth from "./middleware/private-route";
-import { useState } from "react";
-import ReactModal from "react-modal";
-import { useSelector } from "react-redux";
-import http from "../helper/http";
-import Sidebar from "./components/sidebar";
-import { useRouter } from "next/router";
-import Footer from "./components/footer";
+import React, { useState } from 'react';
+import ReactModal from 'react-modal';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Navbar from './components/navbar';
+import withAuth from './middleware/private-route';
+import http from '../helper/http';
+import Sidebar from './components/sidebar';
+import Footer from './components/footer';
 
-const TopUp = () => {
+function TopUp() {
   const token = useSelector((state) => state.auth.token);
   const [topUp, setTopUp] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);
@@ -18,11 +18,10 @@ const TopUp = () => {
     const values = {
       amount: e.target.amount.value,
     };
-    console.log(values.amount);
-    await http(token).post("/transactions/topup", values);
+    await http(token).post('/transactions/topup', values);
     setAlertSuccess(true);
     setTimeout(() => {
-      router.push("/home");
+      router.push('/home');
     }, 3000);
   };
 
@@ -34,7 +33,7 @@ const TopUp = () => {
 
         <div className="w-full pb-5 pl-5 pr-3 lg:pb-0 lg:mb-[35px] lg:pr-[150px] lg:pr-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">
-            <button onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px] mb-5">
+            <button type="submit" onClick={() => setTopUp(true)} className="group border-1 bg-[#DADADA] hover:bg-[#cd7389] py-[16px] px-[40px]  rounded-[12px] mb-5">
               <p className="text-[#88888F] group-hover:text-white text-[18px] leading-[24px] font-bold">Top Up</p>
             </button>
             <div>
@@ -49,7 +48,7 @@ const TopUp = () => {
                         <p className="text-[#7A7886] text-[16px] leading-[28px] w-[342px]">Enter the amount of money, and click submit </p>
                       </div>
                       <div>
-                        <button onClick={() => setTopUp(false)} className="text-[20px] text-[#3A3D42]">
+                        <button type="submit" onClick={() => setTopUp(false)} className="text-[20px] text-[#3A3D42]">
                           X
                         </button>
                       </div>
@@ -86,6 +85,6 @@ const TopUp = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default withAuth(TopUp);

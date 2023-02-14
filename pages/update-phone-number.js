@@ -1,20 +1,21 @@
-import Image from "next/image";
-import Navbar from "./components/navbar";
-import phone from "../assets/phone2.png";
-import withAuth from "./middleware/private-route";
-import { useSelector } from "react-redux";
-import http from "../helper/http";
-import { useState, useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import Sidebar from "./components/sidebar";
-import Footer from "./components/footer";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+import http from '../helper/http';
+import withAuth from './middleware/private-route';
+import phone from '../assets/phone2.png';
+import Navbar from './components/navbar';
+import Sidebar from './components/sidebar';
+import Footer from './components/footer';
 
 const phoneRegExpID = /^(^08)(\d{8,10})$/;
-
 const phoneScheme = Yup.object().shape({
-  phoneNumber: Yup.string().matches(phoneRegExpID, "Invalid phone number"),
+  phoneNumber: Yup.string().matches(phoneRegExpID, 'Invalid phone number'),
 });
 
 YupPassword(Yup);
@@ -23,23 +24,23 @@ function UpdatePhoneNumber() {
   const [alertPhone, setAlertPhone] = useState(false);
 
   const [bio, setBio] = useState({});
-  console.log(bio);
+
+  const getBio = async () => {
+    const { data } = await http(token).get('https://68xkph-8888.preview.csb.app/profile');
+    return data;
+  };
+
   useEffect(() => {
     getBio().then((data) => {
       setBio(data.results);
     });
   }, []);
 
-  const getBio = async () => {
-    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile");
-    return data;
-  };
-
   const updatePhoneNumber = async (value) => {
-    const phoneNumber = value.phoneNumber;
+    const { phoneNumber } = value;
 
     try {
-      await http(token).post("/profile/phone-number", value);
+      await http(token).post('/profile/phone-number', value);
       setAlertPhone(true);
       setTimeout(() => {
         setAlertPhone(false);
@@ -62,7 +63,7 @@ function UpdatePhoneNumber() {
             </div>
             <Formik
               initialValues={{
-                phoneNumber: "",
+                phoneNumber: '',
               }}
               validationSchema={phoneScheme}
               onSubmit={updatePhoneNumber}

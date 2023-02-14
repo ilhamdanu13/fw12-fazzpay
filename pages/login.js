@@ -1,25 +1,28 @@
-import Image from "next/image";
-import mailInput from "../assets/mail.png";
-import lockInput from "../assets/lock-input.png";
-import peak from "../assets/peak.png";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { loginAction } from "../redux/actions/auth";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+import { loginAction } from '../redux/actions/auth';
+import peak from '../assets/peak.png';
+import lockInput from '../assets/lock-input.png';
+import mailInput from '../assets/mail.png';
+
 YupPassword(Yup);
 
 const loginScheme = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
 });
 
 function Login() {
-  const [errMessage, setErrMessage] = useState("");
   const [alertWrong, setAlertWrong] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [show, setShow] = useState(false);
@@ -30,7 +33,7 @@ function Login() {
     setAlertWrong(false);
     setAlertSuccess(true);
     setTimeout(() => {
-      router.push("/home");
+      router.push('/home');
     }, 3000);
   };
   const login = async (value) => {
@@ -39,10 +42,10 @@ function Login() {
         loginAction({
           ...value,
           cb,
-        })
+        }),
       );
 
-      if (results.payload.startsWith("Wrong")) {
+      if (results.payload.startsWith('Wrong')) {
         setAlertWrong(true);
         return;
       }
@@ -75,8 +78,8 @@ function Login() {
       </div>
       <Formik
         initialValues={{
-          email: "",
-          password: "",
+          email: '',
+          password: '',
         }}
         onSubmit={login}
         validationSchema={loginScheme}
@@ -100,8 +103,8 @@ function Login() {
               <div className="mb-[20px]">
                 <div className="flex items-center text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                   <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                  <Field name="password" type={show ? "text" : "password"} placeholder="Enter your password" className="focus:outline-none w-full " />
-                  <label onClick={handleShow} className="absolute right-5 lg:right-24">
+                  <Field name="password" type={show ? 'text' : 'password'} placeholder="Enter your password" className="focus:outline-none w-full " />
+                  <label onClick={handleShow} onKeyDown={handleShow} className="absolute right-5 lg:right-24">
                     {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                   </label>
                 </div>

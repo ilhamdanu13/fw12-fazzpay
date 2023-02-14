@@ -1,27 +1,32 @@
-import Image from "next/image";
-import previewProduct from "../assets/preview product2.png";
-import mailInput from "../assets/mail.png";
-import lockInput from "../assets/lock-input.png";
-import person from "../assets/person.png";
-import peak from "../assets/peak.png";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { registerAction } from "../redux/actions/auth";
-import { useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import { useState } from "react";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+import Image from 'next/image';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+
+import { registerAction } from '../redux/actions/auth';
+import peak from '../assets/peak.png';
+import person from '../assets/person.png';
+import lockInput from '../assets/lock-input.png';
 
 YupPassword(Yup);
 
 const SignupScheme = Yup.object().shape({
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().password().min(8, "Minimum length 8").minLowercase(1, "At least 1 lowercase").minUppercase(1, "At least 1 uppercase").minSymbols(1, "At least 1 symbol").minNumbers(1, "At least 1 number").required("Required"),
+  firstName: Yup.string().required('Required'),
+  lastName: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().password().min(8, 'Minimum length 8').minLowercase(1, 'At least 1 lowercase')
+    .minUppercase(1, 'At least 1 uppercase')
+    .minSymbols(1, 'At least 1 symbol')
+    .minNumbers(1, 'At least 1 number')
+    .required('Required'),
 });
 
 function SignUp() {
@@ -37,16 +42,16 @@ function SignUp() {
       setAlertEmail(false);
       setAlertSuccess(true);
       setTimeout(() => {}, 3000);
-      router.push("login");
+      router.push('login');
     };
     try {
       const results = await dispatch(
         registerAction({
           ...value,
           cb,
-        })
+        }),
       );
-      if (results.payload.startsWith("duplicate")) {
+      if (results.payload.startsWith('duplicate')) {
         setAlertSuccess(false);
         setAlertEmail(true);
         return;
@@ -87,10 +92,10 @@ function SignUp() {
         <div>
           <Formik
             initialValues={{
-              firstName: "",
-              lastName: "",
-              email: "",
-              password: "",
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
             }}
             validationSchema={SignupScheme}
             onSubmit={register}
@@ -125,8 +130,8 @@ function SignUp() {
                   <div className="mb-[44px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="password" type={show ? "text" : "password"} placeholder="Create your password" className="focus:outline-none w-full " />
-                      <div onClick={handleShow} className="absolute right-[20px]">
+                      <Field name="password" type={show ? 'text' : 'password'} placeholder="Create your password" className="focus:outline-none w-full " />
+                      <div onClick={handleShow} onKeyDown={handleShow} className="absolute right-[20px]">
                         {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>

@@ -1,30 +1,39 @@
-import Image from "next/image";
-import { SlUser } from "react-icons/sl";
-import Navbar from "../components/navbar";
-import { FiEdit2 } from "react-icons/fi";
-import withAuth from "../middleware/private-route";
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import http from "../../helper/http";
-import { useRouter } from "next/router";
-import Sidebar from "../components/sidebar";
-import Footer from "../components/footer";
-import { inputAmount } from "../../redux/reducers/transfer";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import Image from 'next/image';
+import { SlUser } from 'react-icons/sl';
+import { FiEdit2 } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import http from '../../helper/http';
+import withAuth from '../middleware/private-route';
+import Navbar from '../components/navbar';
+import Sidebar from '../components/sidebar';
+import Footer from '../components/footer';
+import { inputAmount } from '../../redux/reducers/transfer';
 
-const InputAmountBlank = () => {
+function InputAmountBlank() {
   const router = useRouter();
   const token = useSelector((state) => state?.auth?.token);
   const { id } = router.query;
   const [recipient, setRecipient] = useState({});
   const [bio, setBio] = useState({});
-  const [newAmount, setNewAmount] = useState("");
-  const [newNote, setNewNote] = useState("");
+  const [newAmount, setNewAmount] = useState('');
+  const [newNote, setNewNote] = useState('');
   const [alertAmount, setAlertAmount] = useState(false);
   const [alertAmountMaximum, setAlertAmountMaximum] = useState(false);
-  const [transferTime, setTranferTime] = useState(new Date());
+  const [transferTime] = useState(new Date());
 
   const dispatch = useDispatch();
+
+  const getBio = async () => {
+    const { data } = await http(token).get('/profile');
+    return data;
+  };
+  const getRecipient = async () => {
+    const { data } = await http(token).get(`/transactions/recipient/${id}`);
+    return data;
+  };
 
   useEffect(() => {
     if (id) {
@@ -40,18 +49,9 @@ const InputAmountBlank = () => {
     });
   }, []);
 
-  const getBio = async () => {
-    const { data } = await http(token).get("/profile");
-    return data;
-  };
-  const getRecipient = async () => {
-    const { data } = await http(token).get(`/transactions/recipient/${id}`);
-    return data;
-  };
-
   const cb = () => {
     setTimeout(() => {
-      router.push("/confirmation/" + id);
+      router.push(`/confirmation/${id}`);
     }, 3000);
   };
   const fillAmount = (e) => {
@@ -66,8 +66,8 @@ const InputAmountBlank = () => {
           recipientId: id,
           amount: newAmount,
           notes: newNote,
-          transferTime: transferTime,
-        })
+          transferTime,
+        }),
       );
       if (newAmount > bio.balance) {
         setAlertAmount(false);
@@ -79,9 +79,6 @@ const InputAmountBlank = () => {
       console.log(error);
     }
   };
-
-  console.log(recipient);
-  console.log(bio);
 
   return (
     <div className="font-nunitoSans">
@@ -96,16 +93,16 @@ const InputAmountBlank = () => {
             </div>
 
             <div className="mb-[40px]">
-              <button className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px] w-full">
+              <button type="submit" className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px] w-full">
                 <div className="mr-[15px]">
                   {recipient.picture ? (
-                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + recipient.picture} width="70" height="70" alt="profile" className="w-[70px] h-[70px] rounded-[50%]" />
+                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${recipient.picture}`} width="70" height="70" alt="profile" className="w-[70px] h-[70px] rounded-[50%]" />
                   ) : (
                     <SlUser className="w-[70px] h-[70px] text-[#dedede] rounded-[50%] " />
                   )}
                 </div>
                 <div className="pl-3">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{recipient.firstName + " " + recipient.lastName}</p>
+                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{`${recipient.firstName} ${recipient.lastName}`}</p>
                   <p className="text-[#7A7886] text-[14px] leading-[19px] font-semibold pl-[10px]">{recipient.phoneNumber}</p>
                 </div>
               </button>
@@ -125,8 +122,18 @@ const InputAmountBlank = () => {
                     className="text-[#6379F4] text-[42px] font-bold focus:outline-none text-center mb-3"
                   />
                   {alertAmount ? <div className="text-red-500 text-sm">Mininum transfer IDR.10000</div> : false}
-                  {alertAmountMaximum ? <div className="text-red-500 text-sm">Maximum transfer {bio.balance}</div> : false}
-                  <p className="text-[#3A3D42] text-[16px] font-bold mb-[63px]">IDR.{bio.balance} Available</p>
+                  {alertAmountMaximum ? (
+                    <div className="text-red-500 text-sm">
+                      Maximum transfer
+                      {bio.balance}
+                    </div>
+                  ) : false}
+                  <p className="text-[#3A3D42] text-[16px] font-bold mb-[63px]">
+                    IDR.
+                    {bio.balance}
+                    {' '}
+                    Available
+                  </p>
                 </label>
                 <div className="w-1/2">
                   <div className="flex">
@@ -147,6 +154,6 @@ const InputAmountBlank = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default withAuth(InputAmountBlank);

@@ -1,25 +1,27 @@
-import Navbar from "./components/navbar";
-import Sidebar from "./components/sidebar";
-import Footer from "./components/footer";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import http from "../helper/http";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import http from '../helper/http';
+import Footer from './components/footer';
+import Sidebar from './components/sidebar';
+import Navbar from './components/navbar';
+
 YupPassword(Yup);
 
 const pinScheme = Yup.object().shape({
-  newPin: Yup.string().minNumbers(6, "Should 6 digits").max(6, "Should 6 digits").required("Required"),
+  newPin: Yup.string().minNumbers(6, 'Should 6 digits').max(6, 'Should 6 digits').required('Required'),
 });
-const ChangePin = () => {
+function ChangePin() {
   const token = useSelector((state) => state?.auth?.token);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const updatePin = async (value) => {
-    const newPin = value.newPin;
+    const { newPin } = value;
 
     try {
-      await http(token).post("/profile/change-pin", value);
+      await http(token).post('/profile/change-pin', value);
       setAlertSuccess(true);
       setTimeout(() => {
         setAlertSuccess(false);
@@ -47,7 +49,7 @@ const ChangePin = () => {
             ) : null}
             <Formik
               initialValues={{
-                newPin: "",
+                newPin: '',
               }}
               onSubmit={updatePin}
               validationSchema={pinScheme}
@@ -75,6 +77,6 @@ const ChangePin = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default ChangePin;

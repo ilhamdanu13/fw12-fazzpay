@@ -1,35 +1,29 @@
-import Image from "next/image";
-import Link from "next/link";
-import arrowUp2 from "../assets/arrow-up2.png";
-import plus2 from "../assets/plus2.png";
-import arrowUpGreen from "../assets/arrow-green.png";
-import arrowRed from "../assets/arrow-red.png";
-import { SlUser } from "react-icons/sl";
-import withAuth from "./middleware/private-route";
-import { useState } from "react";
-import { useEffect } from "react";
-import http from "../helper/http";
-import { useSelector } from "react-redux";
-import Navbar from "./components/navbar";
-import Footer from "./components/footer";
-import Sidebar from "./components/sidebar";
-import jwtDecode from "jwt-decode";
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
+import { SlUser } from 'react-icons/sl';
+import { useSelector } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import arrowUp2 from '../assets/arrow-up2.png';
+import plus2 from '../assets/plus2.png';
+import arrowUpGreen from '../assets/arrow-green.png';
+import arrowRed from '../assets/arrow-red.png';
+import withAuth from './middleware/private-route';
 
-const Home = () => {
+import http from '../helper/http';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
+import Sidebar from './components/sidebar';
+
+function Home() {
   const token = useSelector((state) => state.auth.token);
   const decode = jwtDecode(token);
   const userId = decode.id;
   const [history, setHistory] = useState([]);
   const [bio, setBio] = useState({});
 
-  useEffect(() => {
-    getBio().then((data) => {
-      setBio(data.results);
-    });
-  }, []);
-
   const getBio = async () => {
-    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile", {
+    const { data } = await http(token).get('https://68xkph-8888.preview.csb.app/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -37,8 +31,14 @@ const Home = () => {
     return data;
   };
 
+  useEffect(() => {
+    getBio().then((data) => {
+      setBio(data.results);
+    });
+  }, []);
+
   const getHistory = async () => {
-    const { data } = await http(token).get("/transactions?page=1&limit=4", {
+    const { data } = await http(token).get('/transactions?page=1&limit=4', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,7 +66,10 @@ const Home = () => {
               <div className="flex-1">
                 <div className="flex flex-col p-[30px]">
                   <span className="text-[#E0E0E0] text-[18px] leading-[31px] mb-[10px]">Balance</span>
-                  <span className="text-[#FFFFFF] text-[40px] font-bold leading-[54px] mb-[30px]">IDR.{bio.balance}</span>
+                  <span className="text-[#FFFFFF] text-[40px] font-bold leading-[54px] mb-[30px]">
+                    IDR.
+                    {bio.balance}
+                  </span>
                   <span className="text-[#DFDCDC] text-[14px] font-semibold leading-[20px]">{bio.phoneNumber}</span>
                 </div>
               </div>
@@ -103,26 +106,26 @@ const Home = () => {
                   <div className="">
                     <div className="flex mb-[15px] pl-7 lg:pl-[66px] lg:pr-[39px]">
                       <div className="mr-[30px]">
-                        <div className="border-1 bg-[#cd7389] w-[14px] h-[220px] rounded-[6px]"></div>
+                        <div className="border-1 bg-[#cd7389] w-[14px] h-[220px] rounded-[6px]" />
                       </div>
                       <div className="mr-[30px] flex flex-col-reverse">
-                        <div className="border-1 bg-[#cd7389] w-[14px] h-[97px] rounded-[6px] "></div>
+                        <div className="border-1 bg-[#cd7389] w-[14px] h-[97px] rounded-[6px] " />
                       </div>
                       <div className="mr-[30px] flex flex-col-reverse">
-                        <div className="border-1 bg-[#fadba9] w-[14px] h-[149px] rounded-[6px] "></div>
+                        <div className="border-1 bg-[#fadba9] w-[14px] h-[149px] rounded-[6px] " />
                       </div>
                       <div className="mr-[30px] flex flex-col-reverse">
-                        <div className="border-1 bg-[#fadba9] w-[14px] h-[160px] rounded-b-[6px]"></div>
-                        <div className="border-1 bg-[#cd7389] w-[14px] h-[15px] rounded-full mb-1"></div>
+                        <div className="border-1 bg-[#fadba9] w-[14px] h-[160px] rounded-b-[6px]" />
+                        <div className="border-1 bg-[#cd7389] w-[14px] h-[15px] rounded-full mb-1" />
                       </div>
                       <div className="mr-[30px] flex flex-col-reverse">
-                        <div className="border-1 bg-[#cd7389] w-[14px] h-[138px] rounded-[6px] "></div>
+                        <div className="border-1 bg-[#cd7389] w-[14px] h-[138px] rounded-[6px] " />
                       </div>
                       <div className="mr-[30px] flex flex-col-reverse">
-                        <div className="border-1 bg-[#cd7389] w-[14px] h-[197px] rounded-[6px]"></div>
+                        <div className="border-1 bg-[#cd7389] w-[14px] h-[197px] rounded-[6px]" />
                       </div>
                       <div className="flex flex-col-reverse">
-                        <div className="border-1 bg-[#fadba9] w-[14px] h-[155px] rounded-[6px]"></div>
+                        <div className="border-1 bg-[#fadba9] w-[14px] h-[155px] rounded-[6px]" />
                       </div>
                     </div>
                     <div className="text-[14px] text-[#60bad7] flex pl-5 lg:pl-[60px] pb-[13px]">
@@ -164,7 +167,7 @@ const Home = () => {
                       <div key={i} className="flex mb-[40px]">
                         <div className="mr-[15px]">
                           {list.recipientPicture ? (
-                            <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + list?.recipientPicture} width="70" height="70" alt="man" className="w-[45px] h-[45px] rounded-[50%]" />
+                            <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${list?.recipientPicture}`} width="70" height="70" alt="man" className="w-[45px] h-[45px] rounded-[50%]" />
                           ) : (
                             <SlUser className="w-[45px] h-[45px] text-[#dedede] rounded-[50%]" />
                           )}
@@ -175,9 +178,15 @@ const Home = () => {
                         </div>
                         <div className="flex items-center">
                           {list.recipientId === userId ? (
-                            <span className=" font-bold text-[16px] leading-[21px] text-[#1EC15F] ">+ IDR.{list.amount}</span>
+                            <span className=" font-bold text-[16px] leading-[21px] text-[#1EC15F] ">
+                              + IDR.
+                              {list.amount}
+                            </span>
                           ) : (
-                            <span className=" font-bold text-[16px] leading-[21px] text-red-500 ">- IDR.{list.amount}</span>
+                            <span className=" font-bold text-[16px] leading-[21px] text-red-500 ">
+                              - IDR.
+                              {list.amount}
+                            </span>
                           )}
                         </div>
                       </div>
@@ -192,6 +201,6 @@ const Home = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default withAuth(Home);

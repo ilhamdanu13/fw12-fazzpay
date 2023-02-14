@@ -1,9 +1,12 @@
-import { BiUpArrowAlt, BiPlus, BiGridAlt, BiUser, BiLogOutCircle } from "react-icons/bi";
-import Link from "next/link";
-import { logout as logoutAction } from "../../redux/reducers/auth";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import {
+  BiUpArrowAlt, BiPlus, BiGridAlt, BiUser, BiLogOutCircle,
+} from 'react-icons/bi';
+import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { logout as logoutAction } from '../../redux/reducers/auth';
 
-const Sidebar = () => {
+function Sidebar() {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutAction());
@@ -42,7 +45,7 @@ const Sidebar = () => {
         <div className="pb-[50px]">
           <div className="flex items-center pr-[96px] pt-[64px] pl-[38px]">
             <BiLogOutCircle className="mr-7 w-[25px] h-[25px]" />
-            <button onClick={handleLogout} className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
+            <button type="submit" onClick={handleLogout} className="text-[#3A3D42CC] hover:text-[#60bad7] text-[18px] leading-[31px]">
               Logout
             </button>
           </div>
@@ -50,6 +53,6 @@ const Sidebar = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Sidebar;

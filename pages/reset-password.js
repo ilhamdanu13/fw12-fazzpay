@@ -1,22 +1,23 @@
-import Image from "next/image";
-import mailInput from "../assets/mail.png";
-import peak from "../assets/peak.png";
-import { Formik, Form, Field } from "formik";
-import YupPassword from "yup-password";
-import * as Yup from "yup";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+import Image from 'next/image';
+import { Formik, Form, Field } from 'formik';
+import YupPassword from 'yup-password';
+import * as Yup from 'yup';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { forgotPasswordAction as forgotAction } from '../redux/actions/auth';
+import peak from '../assets/peak.png';
+import mailInput from '../assets/mail.png';
+
 YupPassword(Yup);
-import Link from "next/link";
-import { useState } from "react";
-import { forgotPasswordAction as forgotAction } from "../redux/actions/auth";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 
 const resetPasswordScheme = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string().email('Invalid email').required('Required'),
 });
 
-const ResetPassword = () => {
-  const [alertSuccess, setAlertSuccess] = useState(false);
+function ResetPassword() {
   const [alertEmail, setAlertEmail] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -25,11 +26,11 @@ const ResetPassword = () => {
     const cb = () => {
       setAlertEmail(true);
       setTimeout(() => {
-        router.push("create-new-password");
+        router.push('create-new-password');
       }, 3000);
     };
     try {
-      const results = await dispatch(forgotAction({ ...value, cb }));
+      await dispatch(forgotAction({ ...value, cb }));
       cb();
     } catch (error) {
       console.log(error);
@@ -62,7 +63,7 @@ const ResetPassword = () => {
         </div>
         <Formik
           initialValues={{
-            email: "",
+            email: '',
           }}
           onSubmit={reset}
           validationSchema={resetPasswordScheme}
@@ -99,6 +100,6 @@ const ResetPassword = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ResetPassword;

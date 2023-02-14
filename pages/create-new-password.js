@@ -1,34 +1,36 @@
-import Image from "next/image";
-import previewProduct from "../assets/preview product2.png";
-import mailInput from "../assets/mail.png";
-import lockInput from "../assets/lock-input.png";
-import person from "../assets/person.png";
-import peak from "../assets/peak.png";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import { useState } from "react";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable max-len */
+import Image from 'next/image';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+import React, { useState } from 'react';
+import peak from '../assets/peak.png';
+import lockInput from '../assets/lock-input.png';
 
 YupPassword(Yup);
 
 const createPasswordScheme = Yup.object().shape({
-  newPassword: Yup.string().password().min(8, "Minimum length 8").minLowercase(1, "At least 1 lowercase").minUppercase(1, "At least 1 uppercase").minSymbols(1, "At least 1 symbol").minNumbers(1, "At least 1 number").required("Required"),
+  newPassword: Yup.string().password().min(8, 'Minimum length 8').minLowercase(1, 'At least 1 lowercase')
+    .minUppercase(1, 'At least 1 uppercase')
+    .minSymbols(1, 'At least 1 symbol')
+    .minNumbers(1, 'At least 1 number')
+    .required('Required'),
   confirmNewPassword: Yup.string()
     .password()
-    .min(8, "Minimum length 8")
-    .minLowercase(1, "At least 1 lowercase")
-    .minUppercase(1, "At least 1 uppercase")
-    .minSymbols(1, "At least 1 symbol")
-    .minNumbers(1, "At least 1 number")
-    .required("Required"),
+    .min(8, 'Minimum length 8')
+    .minLowercase(1, 'At least 1 lowercase')
+    .minUppercase(1, 'At least 1 uppercase')
+    .minSymbols(1, 'At least 1 symbol')
+    .minNumbers(1, 'At least 1 number')
+    .required('Required'),
 });
 
-const CreatePassword = () => {
-  const dispatch = useDispatch();
+function CreatePassword() {
   const [showTop, setShowTop] = useState(false);
   const [showBottom, setShowBottom] = useState(false);
   const [alertPassword, setAlertPassword] = useState(false);
@@ -39,7 +41,7 @@ const CreatePassword = () => {
   const createPassword = () => {
     setAlertPassword(true);
     setTimeout(() => {
-      router.push("signup");
+      router.push('signup');
     }, 3000);
   };
   const handleShowTop = () => {
@@ -75,8 +77,8 @@ const CreatePassword = () => {
         <div>
           <Formik
             initialValues={{
-              newPassword: "",
-              confirmNewPassword: "",
+              newPassword: '',
+              confirmNewPassword: '',
             }}
             validationSchema={createPasswordScheme}
             onSubmit={createPassword}
@@ -87,8 +89,8 @@ const CreatePassword = () => {
                   <div className="mb-[44px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="newPassword" type={showTop ? "text" : "password"} placeholder="Create new password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowTop} className="absolute right-5 lg:right-20">
+                      <Field name="newPassword" type={showTop ? 'text' : 'password'} placeholder="Create new password" className="focus:outline-none w-full " />
+                      <div onClick={handleShowTop} onKeyDown={handleShowTop} className="absolute right-5 lg:right-20">
                         {showTop ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -98,8 +100,8 @@ const CreatePassword = () => {
                   <div className="mb-[44px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="confirmNewPassword" type={showBottom ? "text" : "password"} placeholder="Create new password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowBottom} className="absolute right-5 lg:right-20">
+                      <Field name="confirmNewPassword" type={showBottom ? 'text' : 'password'} placeholder="Create new password" className="focus:outline-none w-full " />
+                      <div onClick={handleShowBottom} onKeyDown={handleShowBottom} className="absolute right-5 lg:right-20">
                         {showBottom ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -136,6 +138,6 @@ const CreatePassword = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CreatePassword;

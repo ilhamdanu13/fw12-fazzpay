@@ -1,35 +1,31 @@
-import Image from "next/image";
-import Link from "next/link";
-import Navbar from "../components/navbar";
-import success from "../../assets/success.png";
-import Sidebar from "../components/sidebar";
-import Footer from "../components/footer";
-import http from "../../helper/http";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import moment from "moment";
-import { RxDownload } from "react-icons/rx";
-import { SlUser } from "react-icons/sl";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import { RxDownload } from 'react-icons/rx';
+import { SlUser } from 'react-icons/sl';
+import http from '../../helper/http';
+import Footer from '../components/footer';
+import Sidebar from '../components/sidebar';
+import success from '../../assets/success.png';
+import Navbar from '../components/navbar';
 
-const Success = () => {
+function Success() {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
   const newAmount = Number(amount) - Number(amount);
   const notes = useSelector((state) => state.transfer.notes);
   const time = useSelector((state) => state.transfer.transferTime);
-  const dataTransfer = useSelector((state) => state.transfer);
 
   const [bio, setBio] = useState({});
   const [recipient, setRecipient] = useState({});
-  const [alertPin, setAlertPin] = useState(false);
-  const [pin, setPin] = useState("");
   const router = useRouter();
-  const dispatch = useDispatch();
   const { id } = router.query;
 
   const getBio = async () => {
-    const { data } = await http(token).get("/profile", {
+    const { data } = await http(token).get('/profile', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,7 +67,10 @@ const Success = () => {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Amount</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">IDR.{amount}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">
+                    IDR.
+                    {amount}
+                  </p>
                 </div>
               </div>
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
@@ -83,7 +82,7 @@ const Success = () => {
               <div className="flex mb-[20px] border-1 shadow-md p-[15px] rounded-[10px]">
                 <div className="flex-1">
                   <p className="text-[#7A7886] text-[16px] leading-[21px] mb-[10px]">Date & Time</p>
-                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{moment(time).format("LLL")}</p>
+                  <p className="text-[#514F5B] text-[22px] leading-[30px] font-bold">{moment(time).format('LLL')}</p>
                 </div>
               </div>
               <div className="flex border-1 shadow-md p-[15px] rounded-[10px] mb-[40px]">
@@ -98,18 +97,18 @@ const Success = () => {
               <div className="flex mb-[40px] border-1 shadow-md p-[20px] rounded-[10px]">
                 <div className="mr-[15px]">
                   {recipient.picture ? (
-                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/` + recipient.picture} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
+                    <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${recipient.picture}`} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />
                   ) : (
                     <SlUser className="w-[70px] h-[70px] text-[#dedede] rounded-[50%] " />
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{recipient.firstName + " " + recipient.lastName}</p>
+                  <p className="text-[#4D4B57] text-[16px] leading-[21px] font-bold mb-[9px]">{`${recipient.firstName} ${recipient.lastName}`}</p>
                   <p className="text-[#7A7886] text-[14px] leading-[30px]">{recipient.phoneNumber}</p>
                 </div>
               </div>
               <div className=" flex justify-end hover:text-white">
-                <button className="group border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-5 lg:px-[48px] text-[16px] leading-[25px] font-bold rounded-[12px] flex mr-[20px]">
+                <button type="submit" className="group border-1 bg-[#cd738926] hover:bg-[#cd7389] py-[16px] px-5 lg:px-[48px] text-[16px] leading-[25px] font-bold rounded-[12px] flex mr-[20px]">
                   <RxDownload className="mr-[15px] w-[25px] h-[25px] text-[#cd7389] group-hover:text-white duration-300" />
                   <p className="text-[18px] font-bold leading-[24px] text-[#cd7389] group-hover:text-white duration-300">Download PDF</p>
                 </button>
@@ -124,6 +123,6 @@ const Success = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Success;

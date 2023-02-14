@@ -1,25 +1,25 @@
-import Link from "next/link";
-import Navbar from "./components/navbar";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import http from "../helper/http";
-import Sidebar from "./components/sidebar";
-import Footer from "./components/footer";
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/navbar';
+import http from '../helper/http';
+import Sidebar from './components/sidebar';
+import Footer from './components/footer';
 
 function PersonalInfo() {
   const token = useSelector((state) => state.auth.token);
   const [bio, setBio] = useState({});
-  console.log(bio);
+
+  const getBio = async () => {
+    const { data } = await http(token).get('https://68xkph-8888.preview.csb.app/profile');
+    return data;
+  };
+
   useEffect(() => {
     getBio().then((data) => {
       setBio(data.results);
     });
   }, []);
-
-  const getBio = async () => {
-    const { data } = await http(token).get("https://68xkph-8888.preview.csb.app/profile");
-    return data;
-  };
   return (
     <div className="font-nunitoSans">
       <Navbar />

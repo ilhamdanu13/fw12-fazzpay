@@ -1,35 +1,42 @@
-import Image from "next/image";
-import Navbar from "./components/navbar";
-import lockInput from "../assets/lock-input.png";
-import { BsEye, BsEyeSlash } from "react-icons/bs";
-import { useRouter } from "next/router";
-import http from "../helper/http";
-import { useState } from "react";
-import withAuth from "./middleware/private-route";
-import { useSelector } from "react-redux";
-import Sidebar from "./components/sidebar";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import Footer from "./components/footer";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
+import Image from 'next/image';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import YupPassword from 'yup-password';
+import Sidebar from './components/sidebar';
+import withAuth from './middleware/private-route';
+import http from '../helper/http';
+import lockInput from '../assets/lock-input.png';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
 
 YupPassword(Yup);
 
 const passwordScheme = Yup.object().shape({
-  newPassword: Yup.string().password().min(8, "Minimum length 8").minLowercase(1, "At least 1 lowercase").minUppercase(1, "At least 1 uppercase").minSymbols(1, "At least 1 symbol").minNumbers(1, "At least 1 number").required("Required"),
+  newPassword: Yup.string().password().min(8, 'Minimum length 8').minLowercase(1, 'At least 1 lowercase')
+    .minUppercase(1, 'At least 1 uppercase')
+    .minSymbols(1, 'At least 1 symbol')
+    .minNumbers(1, 'At least 1 number')
+    .required('Required'),
   confirmPassword: Yup.string()
     .password()
-    .min(8, "Minimum length 8")
-    .minLowercase(1, "At least 1 lowercase")
-    .minUppercase(1, "At least 1 uppercase")
-    .minSymbols(1, "At least 1 symbol")
-    .minNumbers(1, "At least 1 number")
-    .required("Required"),
+    .min(8, 'Minimum length 8')
+    .minLowercase(1, 'At least 1 lowercase')
+    .minUppercase(1, 'At least 1 uppercase')
+    .minSymbols(1, 'At least 1 symbol')
+    .minNumbers(1, 'At least 1 number')
+    .required('Required'),
 });
 
-const ChangePassword = () => {
+function ChangePassword() {
   const token = useSelector((state) => state.auth.token);
-  const [errMessage, setErrMessage] = useState("");
+  const [errMessage, setErrMessage] = useState('');
   const [showFirst, setShowFirst] = useState(false);
   const [showSecond, setShowSecond] = useState(false);
   const [showThird, setShowThird] = useState(false);
@@ -39,16 +46,16 @@ const ChangePassword = () => {
   const router = useRouter();
 
   const resetPassword = async (value) => {
-    const currentPassword = value.currentPassword;
-    const newPassword = value.newPassword;
-    const confirmPassword = value.confirmPassword;
+    const { currentPassword } = value;
+    const { newPassword } = value;
+    const { confirmPassword } = value;
 
     if (newPassword !== confirmPassword) {
       setAlertCurrent(false);
       setAlertPassword(true);
     } else {
       try {
-        const data = await http(token).post("profile/change-password", {
+        const data = await http(token).post('profile/change-password', {
           ...value,
         });
         setAlertCurrent(false);
@@ -87,9 +94,9 @@ const ChangePassword = () => {
             </div>
             <Formik
               initialValues={{
-                currentPassword: "",
-                newPassword: "",
-                confirmPassword: "",
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: '',
               }}
               validationSchema={passwordScheme}
               onSubmit={resetPassword}
@@ -99,8 +106,8 @@ const ChangePassword = () => {
                   <div className="mb-[63px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="currentPassword" type={showFirst ? "text" : "Password"} placeholder="Current password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowFirst} className="absolute right-12 lg:right-80">
+                      <Field name="currentPassword" type={showFirst ? 'text' : 'Password'} placeholder="Current password" className="focus:outline-none w-full " />
+                      <div onClick={handleShowFirst} onKeyDown={handleShowFirst} className="absolute right-12 lg:right-80">
                         {showFirst ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -109,8 +116,8 @@ const ChangePassword = () => {
                   <div className="mb-[63px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="newPassword" type={showSecond ? "text" : "Password"} placeholder="New password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowSecond} className="absolute right-12 lg:right-80">
+                      <Field name="newPassword" type={showSecond ? 'text' : 'Password'} placeholder="New password" className="focus:outline-none w-full " />
+                      <div onClick={handleShowSecond} onKeyDown={handleShowSecond} className="absolute right-12 lg:right-80">
                         {showSecond ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -120,8 +127,8 @@ const ChangePassword = () => {
                   <div className="mb-[70px]">
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
-                      <Field name="confirmPassword" type={showThird ? "text" : "Password"} placeholder="Repeat new password" className="focus:outline-none w-full " />
-                      <div onClick={handleShowThird} className="absolute right-12 lg:right-80">
+                      <Field name="confirmPassword" type={showThird ? 'text' : 'Password'} placeholder="Repeat new password" className="focus:outline-none w-full " />
+                      <div onClick={handleShowThird} onKeyDown={handleShowThird} className="absolute right-12 lg:right-80">
                         {showThird ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>
@@ -163,6 +170,6 @@ const ChangePassword = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default withAuth(ChangePassword);
