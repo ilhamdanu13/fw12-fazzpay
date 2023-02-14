@@ -163,8 +163,8 @@ function Home() {
                     </Link>
                   </div>
                   <div>
-                    {history?.map((list, i) => (
-                      <div key={i} className="flex mb-[40px]">
+                    {history?.map((list) => (
+                      <div key={list.id} className="flex mb-[40px]">
                         <div className="mr-[15px]">
                           {list.recipientPicture ? (
                             <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${list?.recipientPicture}`} width="70" height="70" alt="man" className="w-[45px] h-[45px] rounded-[50%]" />

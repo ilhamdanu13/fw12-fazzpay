@@ -81,8 +81,8 @@ function Navbar() {
       </div>
       {notif ? (
         <div className="absolute lg:right-44 top-40 bg-white p-[30px] shadow-lg rounded-[20px]">
-          {notification?.map((list, i) => (
-            <div key={i} className="py-[20px] px-[25px] flex shadow-xl rounded-[10px]">
+          {notification?.map((list) => (
+            <div key={list.id} className="py-[20px] px-[25px] flex shadow-xl rounded-[10px]">
               <div className="flex flex-col">
                 {notification.recipientId === userId && notification.sendername ? (
                   <div className="flex">
