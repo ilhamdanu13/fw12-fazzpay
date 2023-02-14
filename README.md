@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project tailwind with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# Cluepay
+## About
+Cluepay is a money management app or online platform that allows you to make purchases with retailers on-site, transfer or send money and track rewards programs. You can link the e-wallet to your bank account or pay as you go with a prepay option.
+
+## Built
+This app built with:
+
+[![My Skills](https://skills.thijs.gg/icons?i=nextjs,postman&theme=light)](https://skills.thijs.gg)
+
+## Packages
 
 ## Getting Started
 
