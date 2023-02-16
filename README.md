@@ -8,7 +8,11 @@ Cluepay is a money management app or online platform that allows you to make pur
 This app built with:
 
 [![My Skills](https://skills.thijs.gg/icons?i=nextjs,postman&theme=light)](https://skills.thijs.gg)
-
+![Tech](https://img.shields.io/badge/logo-javascript-blue?logo=javascript)
+![Tech](https://img.shields.io/badge/logo-react-blue?logo=react)
+![Tech](https://img.shields.io/badge/logo-tailwind-blue?logo=tailwind)
+![Tech](https://img.shields.io/badge/logo-daisyiu-blue?logo=daisyui)
+![Tech](https://img.shields.io/badge/logo-node-blue?logo=nodedotjs)
 ## Packages
 
 ## Getting Started
