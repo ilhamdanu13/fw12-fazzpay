@@ -21,9 +21,9 @@ function PersonalInfo() {
     });
   }, []);
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
+      <div className="pt-[40px] lg:flex">
         <Sidebar />
         <div className="w-full pl-3 lg:pl-5 pr-3 pb-5 lg:mb-[35px] lg:pr-[150px] lg:pl-0 lg:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">

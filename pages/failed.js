@@ -52,9 +52,9 @@ function Success() {
   }, [id]);
 
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] md:flex">
+      <div className="pt-[40px] md:flex">
         <Sidebar />
         <div className="w-full pl-5 pr-3 pb-5 md:mb-[35px] md:pr-[150px] md:pr-0 md:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px]">

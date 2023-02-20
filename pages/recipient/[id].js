@@ -81,9 +81,9 @@ function InputAmountBlank() {
   };
 
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
+      <div className="pt-[40px] lg:flex">
         <Sidebar />
 
         <div className="w-full pb-5 pl-3 pr-3 lg:mb-[35px] lg:pr-[150px]">

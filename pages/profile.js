@@ -145,9 +145,9 @@ function Profile() {
               </Link>
             </div>
             <div>
-              <button type="submit" onClick={handleLogout} className=" w-full">
-                <div className="px-[20px] py-[18px] flex border-1 bg-[#E5E8ED] items-center rounded-[10px]">
-                  <p className="flex-1 text-[#4D4B57] text-[16px] font-bold leading-[28px]">Logout</p>
+              <button type="submit" onClick={handleLogout} className=" w-full group">
+                <div className="px-[20px] py-[18px] flex border-1 bg-[#E5E8ED] items-center rounded-[10px] hover:bg-[#cd7389]  hover:font-bold duration-200">
+                  <p className="flex-1 text-[#4D4B57] text-[16px] font-bold leading-[28px] group-hover:text-white">Logout</p>
                 </div>
               </button>
             </div>

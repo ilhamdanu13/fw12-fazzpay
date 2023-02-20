@@ -82,9 +82,9 @@ function ChangePassword() {
     setShowThird(!showThird);
   };
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
+      <div className="pt-[40px] lg:flex">
         <Sidebar />
         <div className="w-full pl-3 lg:pl-5 pr-3 pb-5 lg:mb-[35px] lg:pr-[150px] lg:pl-0 lg:pb-0">
           <div className="border-1 bg-white p-[30px] rounded-[25px] pb-[63px]">
@@ -157,7 +157,7 @@ function ChangePassword() {
                     false
                   )}
                   <div>
-                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] px-[110px] lg:px-[130px] rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold">
+                    <button type="submit" className="border-1 bg-[#DADADA] py-[16px] w-full rounded-[12px] text-[#88888F] text-[18px] leading-[24px] font-bold hover:bg-[#60bad7] hover:text-white duration-200">
                       Change Password
                     </button>
                   </div>

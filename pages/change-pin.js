@@ -32,9 +32,9 @@ function ChangePin() {
   };
 
   return (
-    <div className="font-nunitoSans">
+    <div className="font-nunitoSans bg-[#f5f1f3]">
       <Navbar />
-      <div className="bg-[#f5f1f3] pt-[40px] lg:flex">
+      <div className="pt-[40px] lg:flex">
         <Sidebar />
         <div className="w-full lg:mb-[35px] pl-3 lg:pl-5 pr-3 pb-5 lg:pr-[150px]">
           <div className="border-1 bg-white p-[30px] pb-[220px] rounded-[25px]">
@@ -63,7 +63,7 @@ function ChangePin() {
 
                   <div>
                     <div className="px-[80px]">
-                      <button type="submit" className="border-1 bg-[#DADADA] py-[16px] text-[#88888F] text-[18px] leading-[24px] font-bold w-full rounded-[12px] hover:bg-[#60bad7] hover:text-white hover:font-bold">
+                      <button type="submit" className="border-1 bg-[#DADADA] py-[16px] text-[#88888F] text-[18px] leading-[24px] font-bold w-full rounded-[12px] hover:bg-[#60bad7] hover:text-white hover:font-bold duration-200">
                         Continue
                       </button>
                     </div>
