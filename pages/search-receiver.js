@@ -12,10 +12,11 @@ import http from '../helper/http';
 import Sidebar from './components/sidebar';
 import Footer from './components/footer';
 
-function SearchReceiver() {
+const SearchReceiver = () => {
   const token = useSelector((state) => state.auth.token);
   const [listTransaction, setListTransaction] = useState({});
   const [page, setPage] = useState(1);
+  const [dataFilter, setDataFilter] = useState('');
 
   const getListTransaction = async () => {
     const { data } = await http(token).get(`https://68xkph-8888.preview.csb.app/transactions/recipient?page=${page}&limit=5`, {
@@ -43,6 +44,16 @@ function SearchReceiver() {
     setPage(page - 1);
   };
 
+  const searchData = (e) => {
+    e.preventDefault();
+    const filtered = listTransaction?.results?.filter((list) => {
+      if (list.firstName || list.lastName === e.target.query.value) {
+        return true;
+      }
+      return false;
+    });
+    setListTransaction(filtered);
+  };
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#f5f1f3]">
@@ -52,18 +63,20 @@ function SearchReceiver() {
 
           <div className="w-full pb-5 pl-5 pr-3 md:pb-0 md:mb-[35px] md:pr-[150px] md:pr-0">
             <div className="border-1 bg-white p-[30px] rounded-[25px]">
-              <div className="mb-[40px]">
-                <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Search Receiver</p>
-                <div className="flex border-1 relative">
-                  <Image src={search} alt="search" className="mr-[22px] absolute pt-[15px] left-3" />
-                  <input placeholder="Search receiver here" className="focus:outline-none w-full text-[#3A3D4266] text-[16px] border-1 bg-[#3A3D421A] py-[15px] pl-[54px]  rounded-[12px]" />
+              <form onSubmit={searchData}>
+                <div className="mb-[40px]">
+                  <p className="text-[#3A3D42] text-[18px] leading-[25px] font-bold mb-[25px]">Search Receiver</p>
+                  <div className="flex border-1 relative">
+                    <Image src={search} alt="search" className="mr-[22px] absolute pt-[15px] left-3" />
+                    <input type="text" name="query" placeholder="Search receiver here" className="focus:outline-none w-full text-[#3A3D4266] text-[16px] border-1 bg-[#3A3D421A] py-[15px] pl-[54px]  rounded-l-[12px]" />
+                    <button type="submit" className="text-[16px] w-[200px] bg-[#3A3D421A] rounded-r-[12px] hover:bg-[#cd7389] text-[#88888F] hover:text-white font-bold">Search</button>
+                  </div>
                 </div>
-              </div>
-
+              </form>
               <div className="">
                 {listTransaction?.results?.map((list) => (
                   // eslint-disable-next-line react/jsx-key
-                  <Link href={`/recipient/${list.id}`} className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px] w-full">
+                  <Link key={list.id} href={`/recipient/${list.id}`} className="flex mb-[60px] border-1 shadow-md p-[20px] rounded-[10px] w-full">
                     <div className="mr-[15px]">
                       {list.picture ? (
                         <Image src={`${process.env.NEXT_PUBLIC_URL}/upload/${list?.picture}`} width="70" height="70" alt="man" className="w-[70px] h-[70px] rounded-[50%]" />

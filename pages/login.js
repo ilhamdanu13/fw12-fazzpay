@@ -22,7 +22,7 @@ const loginScheme = Yup.object().shape({
   password: Yup.string().required('Required'),
 });
 
-function Login() {
+const Login = () => {
   const [alertWrong, setAlertWrong] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [show, setShow] = useState(false);

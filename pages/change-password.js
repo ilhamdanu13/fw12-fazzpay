@@ -34,7 +34,7 @@ const passwordScheme = Yup.object().shape({
     .required('Required'),
 });
 
-function ChangePassword() {
+const ChangePassword = () => {
   const token = useSelector((state) => state.auth.token);
   const [errMessage, setErrMessage] = useState('');
   const [showFirst, setShowFirst] = useState(false);

@@ -12,3 +12,9 @@
     @apply -rotate-45 -translate-y-1;
   }
 }
+
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}

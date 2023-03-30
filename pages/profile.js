@@ -15,7 +15,7 @@ import withAuth from './middleware/private-route';
 import Sidebar from './components/sidebar';
 import Footer from './components/footer';
 
-function Profile() {
+const Profile = () => {
   const token = useSelector((state) => state?.auth?.token);
   const [picture, setPicture] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);

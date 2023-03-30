@@ -19,7 +19,7 @@ const phoneScheme = Yup.object().shape({
 });
 
 YupPassword(Yup);
-function UpdatePhoneNumber() {
+const UpdatePhoneNumber = () => {
   const token = useSelector((state) => state.auth.token);
   const [alertPhone, setAlertPhone] = useState(false);
 

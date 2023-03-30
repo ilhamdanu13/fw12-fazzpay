@@ -12,7 +12,7 @@ import Sidebar from '../components/sidebar';
 import Footer from '../components/footer';
 import { inputAmount } from '../../redux/reducers/transfer';
 
-function InputAmountBlank() {
+const InputAmountBlank = () => {
   const router = useRouter();
   const token = useSelector((state) => state?.auth?.token);
   const { id } = router.query;

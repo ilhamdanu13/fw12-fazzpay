@@ -12,7 +12,7 @@ import Footer from '../components/footer';
 import http from '../../helper/http';
 import { transferAction } from '../../redux/actions/transfer';
 
-function Confirmation() {
+const Confirmation = () => {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
   const notes = useSelector((state) => state.transfer.notes);

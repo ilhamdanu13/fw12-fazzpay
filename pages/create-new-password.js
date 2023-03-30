@@ -30,7 +30,7 @@ const createPasswordScheme = Yup.object().shape({
     .required('Required'),
 });
 
-function CreatePassword() {
+const CreatePassword = () => {
   const [showTop, setShowTop] = useState(false);
   const [showBottom, setShowBottom] = useState(false);
   const [alertPassword, setAlertPassword] = useState(false);

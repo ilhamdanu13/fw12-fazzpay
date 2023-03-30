@@ -12,7 +12,7 @@ import Sidebar from './components/sidebar';
 import Footer from './components/footer';
 import http from '../helper/http';
 
-function Success() {
+const Success = () => {
   const token = useSelector((state) => state.auth.token);
   const amount = useSelector((state) => state.transfer.amount);
   const note = useSelector((state) => state.transfer.note);

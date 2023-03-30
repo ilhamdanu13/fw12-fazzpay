@@ -12,7 +12,7 @@ import arrRight from '../assets/arrow-right.png';
 import peak from '../assets/peak.png';
 import Footer from './components/footer';
 
-function LandingPage() {
+const LandingPage = () => {
   return (
     <div className="font-nunitoSans">
       <div className="bg-[#7a4c75] pb-[200px]">

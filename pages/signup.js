@@ -29,7 +29,7 @@ const SignupScheme = Yup.object().shape({
     .required('Required'),
 });
 
-function SignUp() {
+const SignUp = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [alertEmail, setAlertEmail] = useState(false);
@@ -131,7 +131,7 @@ function SignUp() {
                     <label className="flex text-[#A9A9A9CC] text-[16px] leading-[24px] mb-[11px]">
                       <Image src={lockInput} alt="lock-input" className="mr-[20px]" />
                       <Field name="password" type={show ? 'text' : 'password'} placeholder="Create your password" className="focus:outline-none w-full " />
-                      <div onClick={handleShow} onKeyDown={handleShow} className="absolute right-[20px]">
+                      <div onClick={handleShow} onKeyDown={handleShow} className="absolute right-5 lg:right-24">
                         {show ? <BsEyeSlash className="w-[25px] h-[25px]" /> : <BsEye className="w-[25px] h-[25px]" />}
                       </div>
                     </label>

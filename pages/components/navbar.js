@@ -12,7 +12,7 @@ import arrowGreen from '../../assets/arrow-green.png';
 import arrowRed from '../../assets/arrow-red.png';
 import bell from '../../assets/bell.png';
 
-function Navbar() {
+const Navbar = () => {
   const token = useSelector((state) => state?.auth?.token);
   const decode = jwtDecode(token);
   const userId = decode.id;

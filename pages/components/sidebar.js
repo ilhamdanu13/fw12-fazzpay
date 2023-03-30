@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from '../../redux/reducers/auth';
 
-function Sidebar() {
+const Sidebar = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logoutAction());

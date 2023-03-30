@@ -8,7 +8,7 @@ import http from '../helper/http';
 import Sidebar from './components/sidebar';
 import Footer from './components/footer';
 
-function TopUp() {
+const TopUp = () => {
   const token = useSelector((state) => state.auth.token);
   const [topUp, setTopUp] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);

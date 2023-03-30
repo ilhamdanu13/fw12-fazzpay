@@ -17,7 +17,7 @@ const resetPasswordScheme = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
 });
 
-function ResetPassword() {
+const ResetPassword = () => {
   const [alertEmail, setAlertEmail] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();

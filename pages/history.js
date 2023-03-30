@@ -9,7 +9,7 @@ import Sidebar from './components/sidebar';
 import Navbar from './components/navbar';
 import http from '../helper/http';
 
-function History() {
+const History = () => {
   const token = useSelector((state) => state?.auth?.token);
   const decode = jwtDecode(token);
   const userId = decode.id;

@@ -15,7 +15,7 @@ import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Sidebar from './components/sidebar';
 
-function Home() {
+const Home = () => {
   const token = useSelector((state) => state.auth.token);
   const decode = jwtDecode(token);
   const userId = decode.id;

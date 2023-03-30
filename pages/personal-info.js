@@ -6,7 +6,7 @@ import http from '../helper/http';
 import Sidebar from './components/sidebar';
 import Footer from './components/footer';
 
-function PersonalInfo() {
+const PersonalInfo = () => {
   const token = useSelector((state) => state.auth.token);
   const [bio, setBio] = useState({});
 
